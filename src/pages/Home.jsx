@@ -40,9 +40,12 @@ const Home = () => {
         <>
             <div className='h-[100vh] w-[100vw] bg-[url("./assets/bg.jpg")] bg-cover bg-center'>
                 <RouterProvider router={router} />
-                <div className="globalConnection flex justify-center items-center border-2 border-pink-400 rounded-full p-1 m-3 w-[20vw]"><span><AiOutlineKubernetes />Connect with developeres around the world</span></div>
+                <div className="globalConnection flex justify-center items-center border-2 border-pink-500 rounded-full p-2 m-3 mt-[25vh] w-[25vw] gap-1 font-semibold">
+                    <div className="icon flex justify-center items-center text-2xl"> <AiOutlineKubernetes /> </div>
+                    <div className="text flex justify-center items-center text-lg">Connect with developeres around the world</div>
+                    </div>
             </div>
-            
+
         </>
     )
 }

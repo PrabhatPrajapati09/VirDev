@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add to your index.css or tailwind globals */
+.input {
+  @apply w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+.btn {
+  @apply w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 font-semibold;
+}
+
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
