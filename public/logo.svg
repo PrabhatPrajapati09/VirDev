@@ -1,45 +1,6 @@
-<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-  <!-- Hexagon -->
-  <polygon 
-    points="150,15 265,85 265,215 150,285 35,215 35,85" 
-    fill="none" 
-    stroke="#0f2f41" 
-    stroke-width="12" 
-  />
-
-  <!-- Central user icon -->
-  <circle 
-    cx="150" 
-    cy="120" 
-    r="28" 
-    fill="#2196f3" 
-  />
-  <path 
-    d="M110,185 q40,-55 80,0 v15 h-80 z" 
-    fill="#2196f3" 
-  />
-
-  <!-- Left user icon -->
-  <circle 
-    cx="90" 
-    cy="130" 
-    r="16" 
-    fill="#0f2f41" 
-  />
-  <path 
-    d="M70,180 q20,-35 40,0 v10 h-40 z" 
-    fill="#0f2f41" 
-  />
-
-  <!-- Right user icon -->
-  <circle 
-    cx="210" 
-    cy="130" 
-    r="16" 
-    fill="#0f2f41" 
-  />
-  <path 
-    d="M190,180 q20,-35 40,0 v10 h-40 z" 
-    fill="#0f2f41" 
-  />
+<svg width="120" height="180" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- The </> symbol in rose-500 -->
+  <text x="60" y="120" font-family="monospace" font-size="80" font-weight="bold" text-anchor="middle" fill="#f43f5e">
+    &lt;/&gt;
+  </text>
 </svg>
