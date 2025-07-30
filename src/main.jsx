@@ -4,7 +4,8 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import AuthPage from './pages/AuthPage.jsx'
+import LoginForm from './components/auth/LoginForm.jsx'
+import SignupForm from './components/auth/SignupForm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,9 +33,13 @@ const router = createBrowserRouter([
     element: <Home scrollTo={"about"} />,
   },
   {
-    path: "/auth/:mode",
-    element: <AuthPage />
+    path: "/login",
+    element: <LoginForm />
   },
+  {
+    path: "/register",
+    element: <SignupForm />
+  }
 ])
 
 createRoot(document.getElementById('root')).render(

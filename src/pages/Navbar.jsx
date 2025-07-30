@@ -22,7 +22,7 @@ const Navbar = () => {
                         {/* <div className="profile h-[40px] w-[40px] border rounded-full flex justify-center items-center">
                         <AiOutlineUser />
                     </div> */}
-                        < NavLink to="/auth/login"><div className="button h-[40px] w-[180px] font-semibold rounded-xl flex justify-center items-center bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500">Register/Login</div></NavLink>
+                        < NavLink to="/login"><div className="button h-[40px] w-[180px] font-semibold rounded-xl flex justify-center items-center bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500">Register/Login</div></NavLink>
 
                     </div>
                 </div>

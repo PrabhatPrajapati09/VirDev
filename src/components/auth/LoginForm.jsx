@@ -1,134 +1,44 @@
-// import React from 'react'
-// import { useForm } from 'react-hook-form'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { NavLink } from 'react-router-dom'
 
-// const LoginForm = () => {
-//     const {
-//         register,
-//         handleSubmit,
-//         watch,
-//         formState: { errors },
-//     } = useForm()
+const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
 
-//     const onSubmit = (data) => { console.log(data) }
-
-//     return (
-//         <div className='flex justify-center items-center h-[80vh] w-screen'>
-//             <div className=' h-[80vh] w-[30vw] bg-gray-600 opacity-[0.5] rounded-3xl'>
-//                 <form action="" onSubmit={handleSubmit(onSubmit)}>
-//                     <h1 className='text-6xl m-10 p-5 font-bold bg-gradient-to-r from-[#FC354C] via-[#8A7681] to-[#0ABFBC]  bg-clip-text text-transparent' >LoginForm</h1>
-//                     <input className='useremail h-[50px] w-[25vw] bg-transparent border-2 border-pink-500 rounded-xl p-2 m-3' type="text" name="email" id="" placeholder='Enter Email' {...register('email', { required: {value: true, message: 'Email is required'}})} />
-//                     {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
-//                     <input className='userpassword h-[50px] w-[25vw] bg-transparent border-2 border-pink-500 rounded-xl p-2 m-3' type="password" name="password" id="" placeholder='Enter Password' {...register('password', { required: {value: true, message: 'Password is required' , minLength: {value: 8, message: 'Password must be at least 8 characters'}}})} />
-//                     <button type='submit' className='h-[50px] w-[25vw] bg-gradient-to-r from-[#FC354C] via-[#8A7681] to-[#0ABFBC] rounded-xl m-3 text-3xl'>Login</button>
-                    
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default LoginForm
-
-
-
-
-import React, { useState } from "react";
-
-function LoginForm() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [visible, setVisible] = useState(true);
-
-  if (!visible) return null;
+  const onSubmit = (data) => { console.log(data) }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-2xl w-[90%] max-w-md relative">
-        {/* Toggle Header */}
-        <div className="flex justify-between items-center mb-4 border-b pb-2">
-          <div className="space-x-4">
-            <button
-              onClick={() => setIsLogin(true)}
-              className={`font-semibold ${isLogin ? "text-blue-600" : "text-gray-500"}`}
-            >
-              Login
-            </button>
-            <button
-              onClick={() => setIsLogin(false)}
-              className={`font-semibold ${!isLogin ? "text-blue-600" : "text-gray-500"}`}
-            >
-              Register
-            </button>
+    <div className='h-screen bg-gradient-to-r bg-black from-rose-500/50 via-transparent to-blue-600/50 mx-auto flex justify-center items-center'>
+      <div className="logincard bg-slate-600/50 w-[90%] max-w-md flex justify-center items-center flex-wrap rounded-3xl">
+        <div className='flex flex-nowrap justify-between w-[93%]'>
+
+          <h1 className='w-[90%] text-4xl text-center font-bold p-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent bg-[length:300%_300%] animate-gradient m-3'>VirDev Register</h1>
+
+          <div className="close flex justify-end text-2xl text-white m-3">
+            <NavLink to="/">x</NavLink>
           </div>
-          <button
-            onClick={() => setVisible(false)}
-            className="text-gray-500 hover:text-red-500 text-2xl leading-none"
-          >
-            ×
-          </button>
         </div>
 
-        {/* Form */}
-        <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          Virdev {isLogin ? "Login" : "Register"}
-        </h2>
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <input className='useremail w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4' type="text" name="email" id="" placeholder='Enter Email' {...register('email', { required: { value: true, message: 'Email is required' } })} />
+          {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
 
-        <form className="space-y-4">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 font-semibold"
-          >
-            Submit
-          </button>
+          <input className='userpassword w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4' type="password" name="password" id="" placeholder='Enter Password' {...register('password', { required: { value: true, message: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } } })} />
+          {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+
+          <button className='loginbtn w-[25vw] h-[50px] bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white font-semibold rounded-xl p-2 m-4' type="submit">Login</button>
         </form>
+        <p className='text-white m-4'>Not a user? <NavLink to="/register" className='text-blue-600 hover:underline'>Register</NavLink></p>
 
-        {/* Register Link */}
-        {isLogin && (
-          <p className="text-sm text-center mt-4 text-gray-600">
-            Not a user?{" "}
-            <button
-              onClick={() => setIsLogin(false)}
-              className="text-blue-600 hover:underline"
-            >
-              Register
-            </button>
-          </p>
-        )}
+
       </div>
     </div>
-  );
+  )
 }
 
-export default LoginForm;
-
-
-
-
-
-
-
-
-// export default function LoginForm({ onSwitch }) {
-//   return (
-//     <form className="space-y-4">
-//       <input type="email" placeholder="Email" className="input" />
-//       <input type="password" placeholder="Password" className="input" />
-//       <button type="submit" className="btn">Login</button>
-//       <p className="text-sm text-center text-gray-600">
-//         Not a user?{" "}
-//         <button type="button" onClick={onSwitch} className="text-blue-600 hover:underline">
-//           Register
-//         </button>
-//       </p>
-//     </form>
-//   );
-// }
+export default LoginForm
