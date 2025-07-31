@@ -1,10 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
-// import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Navbar from './Navbar'
 import LoginForm from '../components/auth/LoginForm'
 import { AiOutlineKubernetes, AiOutlineArrowRight, AiOutlineArrowLeft, AiOutlineApartment, AiOutlineRuby, AiOutlineSolution } from "react-icons/ai";
-import { BsSearchHeart, BsBagCheck } from "react-icons/bs";
+import { BsSearchHeart, BsBagCheck, BsPersonBoundingBox, BsChatDots } from "react-icons/bs";
 import { FaCommentDots } from "react-icons/fa";
+import { DiTerminalBadge } from "react-icons/di";
+import logo from '../assets/logo.svg'
+import { MdOutlineSwipe, MdNetworkCheck } from 'react-icons/md'
 
 
 
@@ -72,7 +74,9 @@ const Home = ({ scrollTo }) => {
                             {/* Top visible card */}
                             <div className="card4 bg-slate-700/80 rounded-2xl h-[446px] w-[342px] rotate-[-4deg] hover:rotate-0 duration-500 ease-in-out relative z-10 p-3">
                                 <div className="box h-[130px] w-[318px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
-                                    {"</>"}
+                                    <span className=" w-10 text-fuchsia-500">
+                                        <img src={logo} />
+                                    </span>
                                 </div>
                                 <button className="h-[40px] w-[180px] font-semibold rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white mb-3">
                                     Find Your Partner
@@ -158,7 +162,7 @@ const Home = ({ scrollTo }) => {
                 </div>
             </section>
 
-            <section ref={sections['how-it-works']} className="h-screen bg-black">
+            <section ref={sections['how-it-works']} className="h-[60vh] bg-black">
                 <div className="h-screen bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
                     <div className='pt-[10vh]'>
 
@@ -169,6 +173,44 @@ const Home = ({ scrollTo }) => {
                             Welcome to VirDev, Follow the steps below to get started:
                         </h4>
                     </div>
+                    <div className="symbols flex justify-around w-screen my-4">
+                        <div className='profile h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
+                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">1</div>
+                            <BsPersonBoundingBox />
+                        </div>
+                        <div className='match h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
+                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">2</div>
+                            <MdOutlineSwipe />
+                        </div>
+                        <div className='chat h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
+                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">3</div>
+                            <BsChatDots />
+                        </div>
+                        <div className='collaborate h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
+                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">4</div>
+                            <MdNetworkCheck />
+                        </div>
+                    </div>
+                    <div className="symbolinfo flex justify-around w-screen">
+                        <div className='w-[20%]'>
+                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Create Profile</h2>
+                            <h3 className="text-lg text-gray-300  leading-tight text-center">Create a profile to showcase your skills, interests and types of projects you want to work on.</h3>
+                        </div>
+                        <div className='w-[20%]'>
+                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Swipe and Match</h2>
+                            <h3 className="text-lg text-gray-300  leading-tight text-center">Browse through developer profiles and find developers who match your skills and interests</h3>
+                        </div>
+                        <div className='w-[20%]'>
+                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Connect and Chat</h2>
+                            <h3 className="text-lg text-gray-300  leading-tight text-center">Once connected chat and discuss your ideas and thoughts about potential projects</h3>
+                        </div>
+                        <div className='w-[20%]'>
+                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Collaborate</h2>
+                            <h3 className="text-lg text-gray-300  leading-tight text-center">Start to collaborate on projects and work together to bring your ideas to life</h3>
+                        </div>
+
+                    </div>
+
                 </div>
             </section>
 
