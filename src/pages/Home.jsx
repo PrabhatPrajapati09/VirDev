@@ -1,19 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react'
-import Navbar from './Navbar'
-import LoginForm from '../components/auth/LoginForm'
-import { AiOutlineKubernetes, AiOutlineArrowRight, AiOutlineArrowLeft, AiOutlineApartment, AiOutlineRuby, AiOutlineSolution } from "react-icons/ai";
-import { BsSearchHeart, BsBagCheck, BsPersonBoundingBox, BsChatDots } from "react-icons/bs";
-import { FaCommentDots } from "react-icons/fa";
-import { DiTerminalBadge } from "react-icons/di";
 import logo from '../assets/logo.svg'
-import { MdOutlineSwipe, MdNetworkCheck } from 'react-icons/md'
-import { IoIosPerson } from 'react-icons/io';
-
+import Features from './Features';
+import How_it_works from './How_it_works';
+import Testimonials from './Testimonials';
+import About from './About';
+import Hero_section from './Hero_section';
 
 
 const Home = ({ scrollTo }) => {
     const sections = {
-        home: useRef(null),
+        hero: useRef(null),
         features: useRef(null),
         'how-it-works': useRef(null),
         testimonials: useRef(null),
@@ -30,258 +26,56 @@ const Home = ({ scrollTo }) => {
 
     return (
         <>
-            <section ref={sections.home} className="h-screen bg-black">
-                {/* <div className="h-[100vh] w-[99vw] bg-[url('./assets/bg.jpg')] bg-cover bg-center"> */}
-                <div className="h-[100vh] w-[99vw] bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50 ">
-                    <div className=' relative z-50'>
-                        <Navbar />
-                    </div>
-                    <div className="flex justify-between items-center h-full px-10 flex-wrap">
-                        {/* Left content */}
-                        <div className="max-w-[50%]">
-                            <div className="globalConnection flex items-center border-2 border-pink-500 rounded-full px-2 py-1 w-fit gap-2 font-semibold text-fuchsia-500 mt-[18vh] ml-3">
-                                <AiOutlineKubernetes className="text-xl" />
-                                <span className="text-sm">Connect with developers around the world</span>
-                            </div>
+            <div className="overflow-hidden">
+                <section ref={sections.hero} className="h-screen bg-black">
+                    <Hero_section />
+                </section>
 
-                            <h1 className="text-6xl font-bold text-white p-3 leading-tight">
-                                Find your Perfect{" "}
-                                <span className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent bg-[length:300%_300%] animate-gradient">
-                                    Virtual Dev Partner
+
+                <section ref={sections.features} className="h-screen bg-black">
+                    <Features />\
+                </section>
+
+                <section ref={sections['how-it-works']} className="h-[60vh] bg-black">
+                    <How_it_works />
+                </section>
+
+                <section ref={sections.testimonials} className="h-[55vh] bg-black">
+                    <Testimonials />
+                </section>
+
+                <section ref={sections.about} className="h-[58vh] bg-black">
+                    <About />
+                </section>
+                <footer className="bg-gray-900 text-white py-8 px-4 ">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+
+                            {/* Logo and Name */}
+                            <div className="flex items-center gap-2 text-xl font-bold">
+                                <div className="w-10">
+
+                                    <img src={logo} />
+                                </div>
+                                <span className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent text-3xl">
+                                    VirDev
                                 </span>
-                            </h1>
-
-                            <p className="text-2xl text-white p-3 w-[90%]">
-                                VirDev connects developers based on skills, interests, and projects. Swipe, match, and build amazing things together.
-                            </p>
-
-                            <button className="getStarted rounded-xl p-5 text-white m-5 text-2xl flex items-center gap-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500">
-                                Get Started <AiOutlineArrowRight />
-                            </button>
-                        </div>
-
-                        {/* Right Cards */}
-                        <div className="hovercards h-[70vh] w-[35vw] flex items-center justify-center">
-                            <div className="card1 bg-violet-500/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc1 absolute">
-                                <div className="box h-[130px] w-[321px] m-3 bg-violet-500 rounded-2xl"></div>
-                            </div>
-                            <div className="card2 bg-cyan-700/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc2 absolute">
-                                <div className="box h-[130px] w-[321px] m-3 bg-cyan-500 rounded-2xl"></div>
-                            </div>
-                            <div className="card3 bg-blue-700/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc3 absolute">
-                                <div className="box h-[130px] w-[321px] m-3 bg-blue-500 rounded-2xl"></div>
                             </div>
 
-                            {/* Top visible card */}
-                            <div className="card4 bg-slate-700/80 rounded-2xl h-[446px] w-[342px] rotate-[-4deg] hover:rotate-0 duration-500 ease-in-out relative z-10 p-3">
-                                <div className="box h-[130px] w-[318px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
-                                    <span className=" w-10 text-fuchsia-500">
-                                        <img src={logo} />
-                                    </span>
-                                </div>
-                                <button className="h-[40px] w-[180px] font-semibold rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white mb-3">
-                                    Find Your Partner
-                                </button>
-                                <div className="info h-[15px] w-[230px] bg-slate-400 rounded-2xl mb-2"></div>
-                                <div className="info h-[13px] w-[180px] bg-slate-400 rounded-2xl mb-4"></div>
-
-                                <div className="navigate flex justify-between">
-                                    <div className="prev h-[50px] w-[50px] bg-fuchsia-500/40 opacity-40 rounded-full flex justify-center items-center text-2xl text-fuchsia-500">
-                                        <AiOutlineArrowLeft />
-                                    </div>
-                                    <div className="next h-[50px] w-[50px] bg-cyan-500/40 rounded-full flex justify-center items-center text-2xl text-cyan-500">
-                                        <AiOutlineArrowRight />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <section ref={sections.features} className="h-screen bg-black">
-                <div className="h-screen bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
-                    <div className='pt-[10vh]'>
-
-                        <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">
-                            VirDev Features
-                        </h1>
-                        <h4 className="text-xl text-white p-2 leading-tight text-center w-[60vw] mx-auto">
-                            VirDev makes it easy to find your perfect virtual dev partner. Our platform is specifically designed to connect developers based on skills, interests, and projects, allowing you to build amazing things together.
-                        </h4>
-                    </div>
-
-                    <div className="features h-[68vh] w-[100vw] flex items-center justify-evenly flex-wrap">
-                        <div className="featureInfo">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <BsSearchHeart />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Smart Matching</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Algorithmically match you with developers based on your skills, interests, and projects</h3>
-
-                        </div>
-                        <div className="featureInfo">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <AiOutlineApartment />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Global Community</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Connect with developers from around the world, building amazing things together</h3>
-
-                        </div>
-                        <div className="featureInfo">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <AiOutlineRuby />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Skill Matching</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Share your skills and interests with developers to find the perfect match</h3>
-                        </div>
-
-
-                        <div className="featureInfo">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <AiOutlineSolution />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Project Collaborations</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Find developers who share your interests and collaborate on projects</h3>
-                        </div>
-                        <div className="featureInfo">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <FaCommentDots />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Seamless Communication</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Easily communicate with developers, share ideas, and collaborate on projects</h3>
-                        </div>
-                        <div className="featureInfo ">
-                            <div className="featureIcon h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-2xl flex justify-center items-center text-4xl text-purple-500">
-                                <BsBagCheck />
-                            </div>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight">Job Opportunities</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight">Discover job opportunities and connect with developers who are looking for work</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section ref={sections['how-it-works']} className="h-[60vh] bg-black">
-                <div className="h-[60vh] bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
-                    <div className='pt-[10vh]'>
-
-                        <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">
-                            How It Works
-                        </h1>
-                        <h4 className="text-xl text-white p-2 leading-tight text-center w-[60vw] mx-auto">
-                            Welcome to VirDev, Follow the steps below to get started:
-                        </h4>
-                    </div>
-                    <div className="symbols flex justify-around w-screen my-4">
-                        <div className='profile h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">1</div>
-                            <BsPersonBoundingBox />
-                        </div>
-                        <div className='match h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">2</div>
-                            <MdOutlineSwipe />
-                        </div>
-                        <div className='chat h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">3</div>
-                            <BsChatDots />
-                        </div>
-                        <div className='collaborate h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                            <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">4</div>
-                            <MdNetworkCheck />
-                        </div>
-                    </div>
-                    <div className="symbolinfo flex justify-around w-screen">
-                        <div className='w-[20%]'>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Create Profile</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight text-center">Create a profile to showcase your skills, interests and types of projects you want to work on.</h3>
-                        </div>
-                        <div className='w-[20%]'>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Swipe and Match</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight text-center">Browse through developer profiles and find developers who match your skills and interests</h3>
-                        </div>
-                        <div className='w-[20%]'>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Connect and Chat</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight text-center">Once connected chat and discuss your ideas and thoughts about potential projects</h3>
-                        </div>
-                        <div className='w-[20%]'>
-                            <h2 className="text-3xl font-semibold text-white p-3 pl-0 leading-tight text-center ">Collaborate</h2>
-                            <h3 className="text-lg text-gray-300  leading-tight text-center">Start to collaborate on projects and work together to bring your ideas to life</h3>
-                        </div>
-
-                    </div>
-
-                </div>
-            </section>
-
-            <section ref={sections.testimonials} className="h-[55vh] bg-black">
-                <div className="bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
-                    <div className='pt-[10vh]'>
-
-                        <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">
-                            What people are saying
-                        </h1>
-                        <p className="text-xl text-white p-2 leading-tight text-center w-[60vw] mx-auto">
-                            *These testimonials are for demonstration purposes only*
-                        </p>
-                    </div>
-
-                    <div className="features h-[30vh] w-[100vw] flex items-center justify-evenly flex-wrap">
-                        
-                        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {/* Testimonial Card */}
-                            <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
-                                <p className="text-white italic leading-relaxed">
-                                    ✨ "VirDev has a clean and intuitive design. Can't wait to try it live!"
-                                </p>
-                                <div className="mt-6 flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center text-3xl"><IoIosPerson /></div>
-                                    <div>
-                                        <p className="font-semibold text-white">Jane Doe</p>
-                                        <p className="text-xs text-gray-400">Web Designer (Demo)</p>
-                                    </div>
-                                </div>
+                            {/* Navigation Links */}
+                            <div className="flex gap-6 text-sm text-gray-400">
+                                <a href="#about" className="hover:text-white transition">About</a>
+                                <a href="#projects" className="hover:text-white transition">Projects</a>
+                                <a href="#contact" className="hover:text-white transition">Contact</a>
+                                <a href="#login" className="hover:text-white transition">Login</a>
                             </div>
 
-                            <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
-                                <p className="text-white italic leading-relaxed">
-                                   ✨ "If this platform launches soon, it’ll be a game-changer!"
-                                </p>
-                                <div className="mt-6 flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center text-3xl"><IoIosPerson /></div>
-                                    <div>
-                                        <p className="font-semibold text-white">John Smith</p>
-                                        <p className="text-xs text-gray-400">Full-Stack Dev (Demo)</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
-                                <p className="text-white italic leading-relaxed">
-                                    ✨ "A solid concept. Looking forward to the final release!"
-                                </p>
-                                <div className="mt-6 flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center text-3xl"><IoIosPerson /></div>
-                                    <div>
-                                        <p className="font-semibold text-white">Alex Rivera</p>
-                                        <p className="text-xs text-gray-400">Tech Enthusiast (Demo)</p>
-                                    </div>
-                                </div>
+                            {/* Copyright */}
+                            <div className="text-sm text-gray-500">
+                                © {new Date().getFullYear()} VirDev. All rights reserved.
                             </div>
                         </div>
-
-                    </div>
-
-
-
-                </div>
-            </section>
-
-            <section ref={sections.about} className="h-screen bg-purple-200">
-                About
-            </section>
-
+                    </footer>
+            </div>
         </>
     )
 }

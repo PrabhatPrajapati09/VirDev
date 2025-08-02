@@ -22,7 +22,6 @@ const Navbar = () => {
                         </div>
                         <div className="links flex gap-6 justify-center items-center text-xl">
                             <div className='flex gap-6 '>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/home">Home</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/features">Features</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/How it works">How it works</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/Testimonials">Testimonials</NavLink>
