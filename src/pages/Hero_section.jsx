@@ -1,6 +1,7 @@
 import { AiOutlineKubernetes, AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai"
 import Navbar from "./Navbar"
 import logo from '../assets/logo.svg'
+import { NavLink } from "react-router-dom"
 
 const Hero_section = () => {
     return (
@@ -27,26 +28,29 @@ const Hero_section = () => {
                         VirDev connects developers based on skills, interests, and projects. Swipe, match, and build amazing things together.
                     </p>
 
-                    <button className="getStarted rounded-xl p-5 text-white m-5 text-2xl flex items-center gap-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500">
+                    <NavLink to="/login">
+
+                    <button className="getStarted rounded-xl p-7 text-white m-5 text-2xl flex items-center gap-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 hover:scale-[1.1] transition-transform hover:animate-sweep">
                         Get Started <AiOutlineArrowRight />
                     </button>
+                    </NavLink>
                 </div>
 
                 {/* Right Cards */}
-                <div className="hovercards h-[70vh] w-[35vw] flex items-center justify-center">
-                    <div className="card1 bg-violet-500/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc1 absolute">
-                        <div className="box h-[130px] w-[321px] m-3 bg-violet-500 rounded-2xl"></div>
+                <div className="hovercards h-[80vh] w-[35vw] flex items-center justify-center">
+                    <div className="card1 bg-violet-500/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc1 absolute">
+                        <div className="box h-[150px] w-[321px] m-3 bg-violet-500 rounded-2xl"></div>
                     </div>
-                    <div className="card2 bg-cyan-700/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc2 absolute">
-                        <div className="box h-[130px] w-[321px] m-3 bg-cyan-500 rounded-2xl"></div>
+                    <div className="card2 bg-cyan-700/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc2 absolute">
+                        <div className="box h-[150px] w-[321px] m-3 bg-cyan-500 rounded-2xl"></div>
                     </div>
-                    <div className="card3 bg-blue-700/70 rounded-2xl h-[446px] w-[342px] animate-moveXYc3 absolute">
-                        <div className="box h-[130px] w-[321px] m-3 bg-blue-500 rounded-2xl"></div>
+                    <div className="card3 bg-blue-700/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc3 absolute">
+                        <div className="box h-[150px] w-[321px] m-3 bg-blue-500 rounded-2xl"></div>
                     </div>
 
                     {/* Top visible card */}
-                    <div className="card4 bg-slate-700/80 rounded-2xl h-[446px] w-[342px] rotate-[-4deg] hover:rotate-0 duration-500 ease-in-out relative z-10 p-3">
-                        <div className="box h-[130px] w-[318px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
+                    <div className="card4 bg-slate-700/80 rounded-2xl h-[486px] w-[342px] rotate-[-4deg] hover:rotate-0 duration-500 ease-in-out relative z-10 p-3">
+                        <div className="box h-[150px] w-[318px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
                             <span className=" w-10 text-fuchsia-500">
                                 <img src={logo} />
                             </span>

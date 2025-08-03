@@ -35,6 +35,22 @@ export default {
           '50%': { transform: 'translate(10px, -10px) rotate(2deg)' },
           '75%': { transform: 'translate(0, 0) rotate(4deg)' },
         },
+        btnshadow: {
+          '0%, 100%': { boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0.5)' },
+          '50%': { boxShadow: '0px 0px 10px 5px rgba(0, 0, 0, 0.5)' },
+        },
+        slidingcoloronhover: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        sweep: {
+          '0%': {
+            left: '-100%'
+          },
+          '100%' :{
+            left: '100%'
+          },
+        },
 
         gradientMove: {
           '0%, 100%': {
@@ -50,6 +66,9 @@ export default {
         moveXYc2: 'moveXYc2 6s ease-in-out infinite',
         moveXYc3: 'moveXYc3 6s ease-in-out infinite',
         gradient: 'gradientMove 10s ease infinite',
+        btnshadow: 'btnshadow 2s ease-in-out infinite',
+        slidingcoloronhover: 'slidingcoloronhover 2s ease-in-out infinite',
+        sweep: 'sweep 2s ease-in-out infinite',
       },
 
 
@@ -61,6 +80,6 @@ export default {
     },
   },
   plugins: [
-  require('tailwind-scrollbar-hide'),
-],
+    require('tailwind-scrollbar-hide'),
+  ],
 }

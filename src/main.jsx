@@ -3,9 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home.jsx'
 import LoginForm from './components/auth/LoginForm.jsx'
 import SignupForm from './components/auth/SignupForm.jsx'
+import Home from './pages/Home.jsx'
+import Navbar from './pages/Navbar.jsx'
+import Home_Navbar from './pages/Home_Navbar.jsx'
 
 const router = createBrowserRouter([
   {
@@ -14,23 +16,23 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home scrollTo={"home"} />,
+    element: <><Home_Navbar /><Home /></>,
   },
   {
     path: "/features",
-    element: <Home scrollTo={"features"} />,
+    element: <App scrollTo={"features"} />,
   },
   {
     path: "/How it works",
-    element: <Home scrollTo={"how-it-works"} />,
+    element: <App scrollTo={"how-it-works"} />,
   },
   {
     path: "/Testimonials",
-    element: <Home scrollTo={"testimonials"} />,
+    element: <App scrollTo={"testimonials"} />,
   },
   {
     path: "/about",
-    element: <Home scrollTo={"about"} />,
+    element: <App scrollTo={"about"} />,
   },
   {
     path: "/login",
