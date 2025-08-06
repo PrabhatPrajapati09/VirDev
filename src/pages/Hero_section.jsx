@@ -38,19 +38,19 @@ const Hero_section = () => {
 
                 {/* Right Cards */}
                 <div className="hovercards h-[80vh] w-[35vw] flex items-center justify-center">
-                    <div className="card1 bg-violet-500/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc1 absolute">
-                        <div className="box h-[150px] w-[321px] m-3 bg-violet-500 rounded-2xl"></div>
+                    <div className="card1 bg-violet-500/70 rounded-2xl h-[516px] w-[372px] animate-moveXYc1 absolute">
+                        <div className="box h-[150px] w-[348px] m-3 bg-violet-500 rounded-2xl"></div>
                     </div>
-                    <div className="card2 bg-cyan-700/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc2 absolute">
-                        <div className="box h-[150px] w-[321px] m-3 bg-cyan-500 rounded-2xl"></div>
+                    <div className="card2 bg-cyan-700/70 rounded-2xl h-[516px] w-[372px] animate-moveXYc2 absolute">
+                        <div className="box h-[150px] w-[348px] m-3 bg-cyan-500 rounded-2xl"></div>
                     </div>
-                    <div className="card3 bg-blue-700/70 rounded-2xl h-[486px] w-[342px] animate-moveXYc3 absolute">
-                        <div className="box h-[150px] w-[321px] m-3 bg-blue-500 rounded-2xl"></div>
+                    <div className="card3 bg-blue-700/70 rounded-2xl h-[516px] w-[372px] animate-moveXYc3 absolute">
+                        <div className="box h-[150px] w-[348px] m-3 bg-blue-500 rounded-2xl"></div>
                     </div>
 
                     {/* Top visible card */}
-                    <div className="card4 bg-slate-700/80 rounded-2xl h-[486px] w-[342px] rotate-[-4deg] hover:rotate-0 duration-500 ease-in-out relative z-10 p-3">
-                        <div className="box h-[150px] w-[318px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
+                    <div className="card4 bg-slate-700/80 rounded-2xl h-[516px] w-[372px] rotate-[-4deg] hover:rotate-0 hover:scale-[1.1] duration-500 ease-in-out relative z-10 p-3">
+                        <div className="box h-[150px] w-[348px] diagonal-gradient  rounded-2xl mb-3 flex justify-center items-center text-4xl text-white">
                             <span className=" w-10 text-fuchsia-500">
                                 <img src={logo} />
                             </span>

@@ -24,17 +24,17 @@ const Navbar = () => {
                         </div>
                         <div className="links flex gap-6 justify-center items-center text-xl">
                             <div className='flex gap-20'>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-pink-600" : "active"} to="/home">
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
                                     <div className="flex h-[70px] w-[80px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><IoHomeOutline /></span> Home
                                     </div>
                                 </NavLink>
-                                    <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-pink-600" : "active"} to="/home">
+                                    <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
                                     <div className="flex h-[70px] w-[110px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><MdOutlinePersonAddAlt /></span> Requests
                                     </div>
                                 </NavLink>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-pink-600" : "active"} to="/home">
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
                                     <div className="flex h-[70px] w-[130px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><GrGroup /></span> Connections
                                     </div>
