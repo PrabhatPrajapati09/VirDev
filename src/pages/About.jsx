@@ -2,7 +2,7 @@
 
 const About = () => {
     return (
-        <div className="h-[58vh] bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
+        <div className="h-[58vh] bg-slate-900">
 
             <div className="px-6 text-center pt-[10vh]">
                 <h2 className="text-6xl font-bold text-gray-300 my-4">About VirDev</h2>

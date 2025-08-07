@@ -16,7 +16,7 @@ const Navbar = () => {
                             <span className=" w-10 text-fuchsia-500">
                                 <img src={logo}  />
                             </span>
-                            <div>
+                            <div >
                                 VirDev
                             </div>
                         </div>

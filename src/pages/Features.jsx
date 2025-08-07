@@ -6,7 +6,7 @@ import { FaCommentDots } from 'react-icons/fa';
 
 const Features = () => {
     return (
-        <div className="h-screen bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
+        <div className="h-screen bg-slate-950">
             <div className='pt-[10vh]'>
 
                 <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">

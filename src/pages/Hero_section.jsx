@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 
 const Hero_section = () => {
     return (
-        <div className="h-screen bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
+        <div className="h-screen bg-slate-950">
             <div className=' relative z-50'>
                 <Navbar />
             </div>

@@ -1,7 +1,7 @@
 import { IoIosPerson } from "react-icons/io"
 const Testimonials = () => {
     return (
-        <div className="bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
+        <div className="bg-salte-950">
             <div className='pt-[10vh]'>
 
                 <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">
@@ -16,7 +16,7 @@ const Testimonials = () => {
 
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
                     {/* Testimonial Card */}
-                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
+                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-slate-900">
                         <p className="text-white italic leading-relaxed">
                             ✨ "VirDev has a clean and intuitive design. Can't wait to try it live!"
                         </p>
@@ -29,7 +29,7 @@ const Testimonials = () => {
                         </div>
                     </div>
 
-                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
+                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-slate-900">
                         <p className="text-white italic leading-relaxed">
                             ✨ "If this platform launches soon, it’ll be a game-changer!"
                         </p>
@@ -42,7 +42,7 @@ const Testimonials = () => {
                         </div>
                     </div>
 
-                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-gray-600/60">
+                    <div className="p-6 rounded-2xl border border-transparent hover:border-pink-600 shadow-sm transition-transform hover:scale-[1.02] bg-slate-900">
                         <p className="text-white italic leading-relaxed">
                             ✨ "A solid concept. Looking forward to the final release!"
                         </p>

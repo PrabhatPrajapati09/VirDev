@@ -2,7 +2,7 @@ import { BsPersonBoundingBox, BsChatDots, } from 'react-icons/bs'
 import { MdOutlineSwipe, MdNetworkCheck } from 'react-icons/md'
 const How_it_works = () => {
     return (
-        <div className="h-[60vh] bg-gradient-to-r from-rose-500/50 via-transparent to-blue-600/50">
+        <div className="h-[60vh] bg-slate-900">
             <div className='pt-[10vh]'>
 
                 <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">
@@ -14,19 +14,19 @@ const How_it_works = () => {
             </div>
             <div className="symbols flex justify-around w-screen my-4">
                 <div className='profile h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">1</div>
+                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute bottom-0 right-0">1</div>
                     <BsPersonBoundingBox />
                 </div>
                 <div className='match h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">2</div>
+                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute bottom-0 right-0">2</div>
                     <MdOutlineSwipe />
                 </div>
                 <div className='chat h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">3</div>
+                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute bottom-0 right-0">3</div>
                     <BsChatDots />
                 </div>
                 <div className='collaborate h-[10vh] w-[5vw]  bg-pink-600/20 p-3 rounded-full flex justify-center items-center text-4xl text-purple-500 relative'>
-                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute top-0 right-0">4</div>
+                    <div className="step w-7 rounded-full bg-fuchsia-500 text-white flex justify-center items-center text-lg absolute bottom-0 right-0">4</div>
                     <MdNetworkCheck />
                 </div>
             </div>
