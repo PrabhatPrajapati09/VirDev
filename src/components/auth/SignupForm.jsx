@@ -44,9 +44,6 @@ const SignupForm = () => {
                     <input className='userpassword w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4 my-2' type="password" name="userpassword" id="" placeholder='Enter Password' {...register('userpassword', { required: { value: true, message: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } } })} />
                     {errors.userpassword && <p className='text-red-500'>{errors.userpassword.message}</p>}
 
-                    <input className='confirmpassword w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4 my-2' type="password" name="confirmpassword" id="" placeholder='Confirm Password' {...register('confirmpassword', { required: { value: true, message: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } } })} />
-                    {errors.confirmpassword && <p className='text-red-500'>{errors.confirmpassword.message}</p>}
-
                     <button className='loginbtn w-[25vw] h-[50px] bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white font-semibold rounded-xl p-2 m-4 my-2' type="submit">Login</button>
                 </form>
                 <p className='text-white m-4'>Already a user? <NavLink to="/login" className='text-blue-600 hover:underline'>Login</NavLink></p>

@@ -2,7 +2,15 @@ import { verify } from "jsonwebtoken";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name: {
+    firstname: {
+        type: String,
+        required: true,
+    },
+    lastname: {
+        type: String,
+        required: true,
+    },
+    username: {
         type: String,
         required: true,
     },
@@ -19,7 +27,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default:''
     },
-    verifyOtpExpire: {
+    verifyOtpExpireAt: {
         type: Number,
         default:0
     },
@@ -27,7 +35,16 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    
+    resetOtp: {
+        type: String,
+        default:''
+    },
+    resetOtpExpireAt: {
+        type: Number,
+        default:0
+    },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+export default User;
