@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoginForm from './components/auth/LoginForm.jsx'
 import SignupForm from './components/auth/SignupForm.jsx'
 import Home from './pages/Home.jsx'
-import Navbar from './pages/Navbar.jsx'
 import Home_Navbar from './pages/Home_Navbar.jsx'
+import { AppContextProvider } from './context/appContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +46,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    
+    <AppContextProvider>
+
+      <RouterProvider router={router} />
+    </AppContextProvider>
+
   </StrictMode>,
 )

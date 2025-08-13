@@ -1,6 +1,7 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from '../../context/appContext'
+
 
 const LoginForm = () => {
   const {
@@ -10,7 +11,31 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => { console.log(data) }
+  const navigate= useNavigate();
+
+  const { backendUrl, setIsLoggedin } = useContext(AppContext);
+
+  const onSubmit = async (e) => {
+    console.log(data) 
+
+    try {
+      e.preventDefault();
+
+      axios.defaults.withCredentials = true;
+
+      const {data} = await axios.post(backendUrl+ "api/auth/login", {email, password});
+
+      if(data.success) {
+        setIsLoggedin(true);
+        navigate("/home");
+      }else{
+        alert(data.message)
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className='h-screen bg-gradient-to-r bg-black from-rose-500/50 via-transparent to-blue-600/50 mx-auto flex justify-center items-center'>
