@@ -90,8 +90,10 @@ export const login = async (req, res) => {
 
     }
     catch (error) {
-        res.json({ success: false, message: error.message });
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
+
 }
 
 
@@ -261,7 +263,7 @@ export const resetPassword = async (req, res) => {
 
         return res.json({ success: true, message: 'Password reset successfully' });
     }
-        
+
     catch (error) {
         res.json({ success: false, message: error.message });
     }

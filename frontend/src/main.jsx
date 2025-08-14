@@ -8,6 +8,8 @@ import SignupForm from './components/auth/SignupForm.jsx'
 import Home from './pages/Home.jsx'
 import Home_Navbar from './pages/Home_Navbar.jsx'
 import { AppContextProvider } from './context/appContext.jsx';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppContextProvider>
-
+      <ToastContainer />
       <RouterProvider router={router} />
     </AppContextProvider>
 

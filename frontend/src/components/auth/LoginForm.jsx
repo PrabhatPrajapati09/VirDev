@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { data, NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/appContext'
-
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useContext } from 'react';
+import logo from "../../assets/logo.svg";
 
 const LoginForm = () => {
   const {
@@ -11,55 +14,58 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm()
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const { backendUrl, setIsLoggedin } = useContext(AppContext);
 
-  const onSubmit = async (e) => {
-    console.log(data) 
-
+  const onSubmit = async ({ email, password }) => {
     try {
-      e.preventDefault();
-
       axios.defaults.withCredentials = true;
-
-      const {data} = await axios.post(backendUrl+ "api/auth/login", {email, password});
-
-      if(data.success) {
+      const { data } = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
+      if (data.success) {
         setIsLoggedin(true);
         navigate("/home");
-      }else{
-        alert(data.message)
+      } else {
+        toast.error(data.message);
       }
-
     } catch (error) {
-      console.error(error);
+      toast.error(error.response?.data?.message || "Server error");
     }
   };
 
+
   return (
-    <div className='h-screen bg-gradient-to-r bg-black from-rose-500/50 via-transparent to-blue-600/50 mx-auto flex justify-center items-center'>
-      <div className="logincard bg-slate-600/50 w-[90%] max-w-md flex justify-center items-center flex-wrap rounded-3xl">
-        <div className='flex flex-nowrap justify-between w-[93%]'>
-
-          <h1 className='w-[90%] text-4xl text-center font-bold p-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent bg-[length:300%_300%] animate-gradient m-3'>VirDev Register</h1>
-
-          <div className="close flex justify-end text-2xl text-white m-3">
-            <NavLink to="/">x</NavLink>
-          </div>
+    <div className='h-screen bg-slate-950 mx-auto flex justify-center items-center'>
+      <div className="logo font-bold text-4xl flex gap-2 absolute left-5 sm:left-10 top-10" onClick={() => navigate("/")}>
+        <span className=" w-10 text-fuchsia-500">
+          <img src={logo} />
+        </span>
+        <div className="cursor-pointer bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+          VirDev
         </div>
+      </div>
+      <div className='bg-slate-900 p-10 rounded-3xl shadow-xl w-full sm:w-96 text-white text-lg'>
+        <h3 className='text-4xl font-bold text-center bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-[length:300%_300%] bg-clip-text text-transparent animate-gradient p-2 mb-4'>VirDev Login</h3>
 
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <input className='useremail w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4' type="text" name="email" id="" placeholder='Enter Email' {...register('email', { required: { value: true, message: 'Email is required' } })} />
-          {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4 flex items-center gap-3 px-5 py-2.5 w-full rounded-full bg-slate-950 text-white ">
+            <input className='bg-transparent outline-none w-full' type="text" name="email" placeholder='Enter Email' {...register('email', { required: { value: true, message: 'Email is required' } })} />
+            {errors.email && <p className='text-xs text-red-500 w-full'>{errors.email.message}</p>}
+          </div>
+          <div className="mb-4 flex items-center gap-3 px-5 py-2.5 w-full rounded-full bg-slate-950 text-white ">
+            <input className='bg-transparent outline-none w-full' type="password" name="password" placeholder='Enter Password' {...register('password', { required: { value: true, message: 'Password is required' } })} />
+            {errors.password && <p className='text-xs text-red-500 w-full'>{errors.password.message}</p>}
 
-          <input className='userpassword w-[93%] h-[50px] bg-transparent border-2 border-gray-600 hover:border-pink-500 rounded-xl p-2 m-4' type="password" name="password" id="" placeholder='Enter Password' {...register('password', { required: { value: true, message: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } } })} />
-          {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+          </div>
 
-          <button className='loginbtn w-[25vw] h-[50px] bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white font-semibold rounded-xl p-2 m-4' type="submit">Login</button>
+          <p className='text-right text-blue-900 hover:text-blue-700 hover:underline cursor-pointer mb-4' >Forgot Password??</p>
+
+          <button className="loginbutton py-2.5 w-full rounded-full bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 hover:scale-[1.03] transition-transform font-medium ">Login</button>
         </form>
-        <p className='text-white m-4'>Not a user? <NavLink to="/register" className='text-blue-600 hover:underline'>Register</NavLink></p>
 
+        <p className='text-gray-500 text-center mt-4'>Not a user?{' '}
+          <NavLink to="/register" className='text-blue-900 hover:text-blue-700 hover:underline'>Register Here</NavLink>
+        </p>
 
       </div>
     </div>
