@@ -14,7 +14,7 @@ const Navbar = () => {
                     <div className="flex justify-between items-center p-3 text-white">
                         <div className="logo font-bold text-4xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent flex gap-2">
                             <span className=" w-10 text-fuchsia-500">
-                                <img src={logo}  />
+                                <img src={logo} />
                             </span>
                             <div >
                                 VirDev
@@ -22,7 +22,6 @@ const Navbar = () => {
                         </div>
                         <div className="links flex gap-6 justify-center items-center text-xl">
                             <div className='flex gap-6 '>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/home">Home</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/features">Features</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/How it works">How it works</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 bg-white/60 text-black" : "active"} to="/Testimonials">Testimonials</NavLink>
