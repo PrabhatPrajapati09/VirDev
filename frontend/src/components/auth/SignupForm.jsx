@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { useForm } from 'react-hook-form'
+import { get, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/appContext';
 import { toast } from 'react-toastify';
@@ -17,15 +17,16 @@ const SignupForm = () => {
 
     const navigate = useNavigate();
 
-    const { backendUrl, setIsLoggedin } = useContext(AppContext);
+    const { backendUrl, setIsLoggedin, getUserData } = useContext(AppContext);
 
     const onSubmit = async ({ firstname, lastname, username, email, password }) => {
         try {
             axios.defaults.withCredentials = true;
-            const { data } = await axios.post(`${backendUrl}/api/auth/register`, { firstname, lastname, username, email, password });
+            const { data } = await axios.post(`${backendUrl}/api/auth/register`, { firstname, lastname, username, email, password }, { withCredentials: true });
             if (data.success) {
                 setIsLoggedin(true);
                 navigate("/home");
+                getUserData();
             } else {
                 toast.error(data.message);
             }

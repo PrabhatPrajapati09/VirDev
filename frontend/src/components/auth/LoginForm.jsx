@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form'
-import { data, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/appContext'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import logo from "../../assets/logo.svg";
 
 const LoginForm = () => {
@@ -16,14 +16,21 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { backendUrl, setIsLoggedin } = useContext(AppContext);
+  const { backendUrl, setIsLoggedin, getUserData } = useContext(AppContext);
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+
 
   const onSubmit = async ({ email, password }) => {
     try {
       axios.defaults.withCredentials = true;
-      const { data } = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
+      const { data } = await axios.post(`${backendUrl}/api/auth/login`, { email, password }, { withCredentials: true });
       if (data.success) {
         setIsLoggedin(true);
+        await getUserData();
         navigate("/home");
       } else {
         toast.error(data.message);
