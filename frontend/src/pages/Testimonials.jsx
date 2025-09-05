@@ -1,7 +1,7 @@
 import { IoIosPerson } from "react-icons/io"
 const Testimonials = () => {
     return (
-        <div className="bg-salte-950">
+        <div className="h-[60vh] bg-slate-950">
             <div className='pt-[10vh]'>
 
                 <h1 className="text-6xl font-bold text-white p-2 leading-tight text-center mx-auto">

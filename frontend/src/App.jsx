@@ -27,24 +27,24 @@ const App = ({ scrollTo }) => {
     return (
         <>
             <div className="overflow-hidden">
-                <section ref={sections.hero} className="h-screen bg-black">
+                <section ref={sections.hero} className="h-screen">
                     <Hero_section />
                 </section>
 
 
-                <section ref={sections.features} className="h-screen bg-black">
+                <section ref={sections.features} className="h-screen">
                     <Features />\
                 </section>
 
-                <section ref={sections['how-it-works']} className="h-[60vh] bg-black">
+                <section ref={sections['how-it-works']} className="h-[121vh]">
                     <How_it_works />
                 </section>
 
-                <section ref={sections.testimonials} className="h-[55vh] bg-black">
+                <section ref={sections.testimonials} className="h-[60vh]">
                     <Testimonials />
                 </section>
 
-                <section ref={sections.about} className="h-[58vh] bg-black">
+                <section ref={sections.about} className="h-[60vh]">
                     <About />
                 </section>
                 <footer className="bg-gray-900 text-white py-8 px-4 ">
