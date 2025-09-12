@@ -11,7 +11,7 @@
 }
 
 .featureInfo{
-  @apply w-[30vw] h-[28vh] bg-slate-900 rounded-3xl  p-4 border-[1px] border-transparent hover:border-pink-600 shadow-sm hover:scale-[1.02] transition-transform 
+  @apply w-auto h-[28vh] bg-slate-900 rounded-3xl  p-4 border-[1px] border-transparent hover:border-pink-600 shadow-sm hover:scale-[1.02] transition-transform 
 }
 
 /* Add this in your global CSS (e.g., index.css or App.css) */

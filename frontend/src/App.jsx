@@ -32,19 +32,19 @@ const App = ({ scrollTo }) => {
                 </section>
 
 
-                <section ref={sections.features} className="h-screen">
-                    <Features />\
+                <section ref={sections.features} >
+                    <Features />
                 </section>
 
-                <section ref={sections['how-it-works']} className="h-[121vh]">
+                <section ref={sections['how-it-works']}>
                     <How_it_works />
                 </section>
 
-                <section ref={sections.testimonials} className="h-[60vh]">
+                <section ref={sections.testimonials}>
                     <Testimonials />
                 </section>
 
-                <section ref={sections.about} className="h-[60vh]">
+                <section ref={sections.about}>
                     <About />
                 </section>
                 <footer className="bg-gray-900 text-white py-8 px-4 ">
