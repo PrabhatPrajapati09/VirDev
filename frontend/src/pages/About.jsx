@@ -2,9 +2,9 @@
 
 const About = () => {
     return (
-        <div className="h-[60vh] bg-slate-900">
+        <div className=" bg-slate-900">
 
-            <div className="px-6 text-center pt-[10vh]">
+            <div className="px-6 text-center pt-[10vh] pb-10">
                 <h2 className="text-6xl font-bold text-gray-300 my-4">About VirDev</h2>
                 <p className="max-w-5xl mx-auto text-gray-600 leading-relaxed text-xl">
                     VirDev is a collaborative platform for developers to showcase their projects, connect with others, and form teams based on skills and interests.
