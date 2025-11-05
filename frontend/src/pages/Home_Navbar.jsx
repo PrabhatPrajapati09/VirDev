@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineUser, } from "react-icons/ai";
 import logo from '../assets/logo.svg'
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePersonAddAlt } from 'react-icons/md';
 import { GrGroup } from 'react-icons/gr';
+import { RxCross2 } from "react-icons/rx";
 
 
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false);
+    // const handleLogout = async () => {
+    //     try {
+    //         await fetch("http://localhost:8800/api/logout", {
+    //             method: "POST",
+    //             credentials: "include" // IMPORTANT for cookies
+    //         });
+
+    //         // Clear front-end state or localStorage if used
+    //         localStorage.removeItem("authToken");
+
+    //         // redirect to login page
+    //         window.location.href = "/login";
+    //     } catch (err) {
+    //         console.log("Logout error:", err);
+    //     }
+    // };
+
+
     return (
         <>
             <div className='h-[10vh] w-[100vw] p-5 fixed'>
@@ -29,7 +49,7 @@ const Navbar = () => {
                                         <span className="text-4xl"><IoHomeOutline /></span> Home
                                     </div>
                                 </NavLink>
-                                    <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
                                     <div className="flex h-[70px] w-[110px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><MdOutlinePersonAddAlt /></span> Requests
                                     </div>
@@ -42,10 +62,47 @@ const Navbar = () => {
                             </div>
 
                         </div>
-                        <div className="profile_log">
+                        {/* <div className="profile_log">
                             <div className="profile h-[60px] w-[60px] text-3xl border rounded-full flex justify-center items-center">
                                 <AiOutlineUser />
                             </div>
+                        </div> */}
+                        <div className="relative">
+
+                            {/* Avatar Button */}
+                            <button
+                                onClick={() => setOpen(!open)}
+                                className="h-[60px] w-[60px] text-3xl border text-white rounded-full flex justify-center items-center hover:bg-slate-800 transition"
+                            >
+                                {open ? <RxCross2 /> : <AiOutlineUser />}
+                            </button>
+
+                            {/* Profile Panel */}
+                            {open && (
+                                <div className="absolute top-[70px] right-0 w-[220px] sm:w-[250px] bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-2xl animate-slideUp">
+                                    <div className="flex flex-col gap-4 text-white text-lg font-semibold">
+
+                                        <NavLink to="/profile"
+                                            onClick={() => setOpen(false)}
+                                            className="hover:text-pink-500 transition">
+                                            Profile
+                                        </NavLink>
+
+                                        <NavLink to="/verify"
+                                            onClick={() => setOpen(false)}
+                                            className="hover:text-pink-500 transition">
+                                            Verify
+                                        </NavLink>
+
+                                        <NavLink to="/logout"
+                                            onClick={() => setOpen(false)}
+                                            className="hover:text-red-500 transition">
+                                            Logout
+                                        </NavLink>
+
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

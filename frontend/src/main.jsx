@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authLoader } from "./loader/authLoader";
 import { AuthProvider } from "./context/authContext";
+import Profile from './pages/Profile.jsx';
+import Logout from './pages/Logout.jsx';
 
 
 
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <SignupForm />
+  },
+  {
+    path: "/profile",
+    element: <Profile />
+  },
+  {
+    path: "/logout",
+    element: <Logout />
   }
 ])
 

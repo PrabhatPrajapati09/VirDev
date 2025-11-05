@@ -42,6 +42,27 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default:0
     },
+    skills: {
+        type: [String],
+        default:[]
+    },
+    about: {
+        type: String,
+        default:'This is a default about'
+    },
+    profilePic: {
+        type: String,
+        default:''
+    },
+    age: {
+        type: Number,
+        default: 0
+    },
+    gender: {
+        type: String,
+        default:''
+    }
+
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
