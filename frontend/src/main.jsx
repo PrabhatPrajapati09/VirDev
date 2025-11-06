@@ -14,6 +14,8 @@ import { authLoader } from "./loader/authLoader";
 import { AuthProvider } from "./context/authContext";
 import Profile from './pages/Profile.jsx';
 import Logout from './pages/Logout.jsx';
+import Requests_page from './pages/Requests_page.jsx';
+import Connections_page from './pages/Connections_page.jsx';
 
 
 
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
   {
     path: "/logout",
     element: <Logout />
+  },
+  {
+    path: "/requests",
+    element: <Requests_page />
+  },
+  {
+    path: "/connections",
+    element: <Connections_page />
   }
 ])
 

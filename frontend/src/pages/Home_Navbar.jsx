@@ -11,22 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    // const handleLogout = async () => {
-    //     try {
-    //         await fetch("http://localhost:8800/api/logout", {
-    //             method: "POST",
-    //             credentials: "include" // IMPORTANT for cookies
-    //         });
 
-    //         // Clear front-end state or localStorage if used
-    //         localStorage.removeItem("authToken");
-
-    //         // redirect to login page
-    //         window.location.href = "/login";
-    //     } catch (err) {
-    //         console.log("Logout error:", err);
-    //     }
-    // };
 
 
     return (
@@ -49,12 +34,12 @@ const Navbar = () => {
                                         <span className="text-4xl"><IoHomeOutline /></span> Home
                                     </div>
                                 </NavLink>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/requests">
                                     <div className="flex h-[70px] w-[110px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><MdOutlinePersonAddAlt /></span> Requests
                                     </div>
                                 </NavLink>
-                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/home">
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/connections">
                                     <div className="flex h-[70px] w-[130px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><GrGroup /></span> Connections
                                     </div>

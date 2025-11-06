@@ -57,21 +57,21 @@ const Profile = () => {
                         <p className="text-2xl font-semibold text-center">Edit Profile</p>
                         <div className="firstname">
                             <p className="text-lg">First Name:</p>
-                            <input type="text" placeholder="Enter First Name" className='bg-violet-900 rounded-2xl p-3 w-full' />
+                            <input type="text" placeholder="Enter First Name" className='bg-violet-900 rounded-2xl p-3 w-full' value={userData ? userData.firstname : ' '}/>
                         </div>
                         <div className="lastname">
                             <p className="text-lg">Last Name:</p>
-                            <input type="text" placeholder="Enter Last Name" className='bg-violet-900 rounded-2xl p-3 w-full' />
+                            <input type="text" placeholder="Enter Last Name" className='bg-violet-900 rounded-2xl p-3 w-full' value={userData ? userData.lastname : ' '}/>
                         </div>
                         <div className="ageandgender flex gap-6">
                             <div className="age">
 
                                 <p className="text-lg">Age:</p>
-                                <input type="text" placeholder="Enter Age" className='bg-violet-900 rounded-2xl p-3' />
+                                <input type="text" placeholder="Enter Age" className='bg-violet-900 rounded-2xl p-3' value={userData ? userData.age : ' '}/>
                             </div>
                             <div className="gender">
                                 <p className="text-lg">Gender:</p>
-                                <select name="gender" id="gender " className="bg-violet-900 rounded-2xl p-3 w-[200%]">
+                                <select name="gender" id="gender " className="bg-violet-900 rounded-2xl p-3 w-[200%]" value={userData ? userData.gender : ' '}>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
@@ -80,11 +80,11 @@ const Profile = () => {
                         </div>
                         <div className="about">
                             <p className="text-lg">About:</p>
-                            <textarea placeholder="Enter About Yourself" className='bg-violet-900 rounded-2xl p-3 w-full' />
+                            <textarea placeholder="Enter About Yourself" className='bg-violet-900 rounded-2xl p-3 w-full' value={userData ? userData.about : ' '}/>
                         </div>
                         <div className="skills">
                             <p className="text-lg">Skills:</p>
-                            <input type="text" placeholder="Enter Skills" className='bg-violet-900 rounded-2xl p-3 w-full' />
+                            <input type="text" placeholder="Enter Skills" className='bg-violet-900 rounded-2xl p-3 w-full' value={userData ? userData.skills : ' '}/>
                         </div>
                         <div className="submit text-center mt-4">
                             <button className="text-xl px-2 py-1 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%]">
