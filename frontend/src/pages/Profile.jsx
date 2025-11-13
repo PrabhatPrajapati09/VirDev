@@ -7,7 +7,7 @@ import logo from "../assets/logo.svg";
 
 const skillSuggestions = [
   "HTML", "CSS", "JavaScript", "React", "Node.js", "Express", "MongoDB",
-  "Python", "Django", "Flask", "TypeScript", "Vue.js", "Angular", 
+  "Python", "Django", "Flask", "TypeScript", "Vue.js", "Angular",
   "Next.js", "Tailwind CSS", "C++", "Java", "C#", "SQL", "PostgreSQL",
   "Firebase", "AWS", "Docker", "Kubernetes", "Git", "Figma", "UI/UX",
   "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity"
@@ -26,6 +26,8 @@ const Profile = () => {
     skills: [],
     skillInput: ''
   });
+
+  const [showEdit, setShowEdit] = useState(false); // ✅ for mobile toggle
 
   useEffect(() => {
     if (userData) {
@@ -59,7 +61,8 @@ const Profile = () => {
 
       if (data.success) {
         toast.success("Profile updated successfully!");
-        getUserData(); // refresh context data
+        getUserData();
+        setShowEdit(false); // ✅ hide edit panel on success
       } else {
         toast.error(data.message || "Update failed");
       }
@@ -70,15 +73,12 @@ const Profile = () => {
   };
 
   return (
-    <div className='min-h-screen bg-slate-900 w-screen flex justify-center items-center flex-col text-white'>
+    <div className="min-h-screen bg-slate-900 w-screen flex flex-col items-center text-white px-4 py-6">
 
       {/* Header */}
-      <div className="header w-full flex justify-between items-center px-6 md:px-10 py-4">
-        <div 
-          className="logo font-bold text-4xl flex gap-2 cursor-pointer"
-          onClick={() => navigate("/home")}
-        >
-          <span className="w-10 text-fuchsia-500">
+      <div className="header w-full flex justify-between items-center px-2 md:px-10 py-4">
+        <div className="logo font-bold text-3xl md:text-4xl flex gap-2 cursor-pointer" onClick={() => navigate("/home")}>
+          <span className="w-8 md:w-10 text-fuchsia-500">
             <img src={logo} alt="VirDev Logo" />
           </span>
           <div className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
@@ -86,7 +86,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div 
+        <div
           className="closeprofile cursor-pointer hover:text-fuchsia-500 w-10 h-10 bg-slate-700 rounded-xl flex justify-center items-center text-2xl"
           onClick={() => navigate("/home")}
         >
@@ -95,21 +95,29 @@ const Profile = () => {
       </div>
 
       {/* Main Container */}
-      <div className="outercontainer w-[90vw] md:w-[70vw] flex flex-col md:flex-row justify-evenly items-start p-5 gap-6">
+      <div className="w-full md:w-[70vw] flex flex-col md:flex-row justify-evenly items-start p-3 gap-6">
 
-        {/* Left Profile Card */}
-        <div className="profilecard w-full md:w-[30%] flex flex-col justify-center items-center">
+        {/* Profile Card */}
+        <div className="profilecard w-full md:w-[35%] flex flex-col justify-center items-center">
           <div className="profile w-full bg-violet-950 rounded-3xl p-6 flex flex-col items-center border-[5px] border-fuchsia-400 text-white gap-6 shadow-lg">
 
             {/* Profile Image */}
             <div className="w-24 h-24 rounded-full border-4 border-yellow-400 overflow-hidden">
-              <img src={userData?.profile || "https://via.placeholder.com/150"} alt="Profile" className="w-full h-full object-cover" />
+              <img
+                src={userData?.profile || "https://via.placeholder.com/150"}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Name & Skills */}
             <div className="text-center leading-tight">
-              <h2 className="text-2xl font-semibold">{userData?.name || "Hello Dev"}, {userData?.age || " "}</h2>
-              <p className="text-lg text-purple-300">{Array.isArray(userData?.skills) ? userData.skills.join(", ") : userData?.skills || "No skills yet"}</p>
+              <h2 className="text-2xl font-semibold">{userData?.name || "Hello Dev"}, {userData?.age || ""}</h2>
+              <p className="text-lg text-purple-300">
+                {Array.isArray(userData?.skills)
+                  ? userData.skills.join(", ")
+                  : userData?.skills || "No skills yet"}
+              </p>
             </div>
 
             {/* About */}
@@ -122,12 +130,23 @@ const Profile = () => {
               {userData?.email || "example@email.com"}
             </button>
           </div>
+
+          {/* Edit Button (Visible only on mobile/tablet) */}
+          <button
+            className="mt-4 md:hidden text-lg px-4 py-2 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-2xl font-semibold hover:scale-105 transition"
+            onClick={() => setShowEdit(!showEdit)}
+          >
+            {showEdit ? "Close Editor" : "Edit Profile"}
+          </button>
         </div>
 
-        {/* Right Profile Update Box */}
-        <div className="profileupdationbox w-full md:w-[55%] flex flex-col justify-center items-center">
+        {/* Profile Update Box (hidden by default on small screens) */}
+        <div
+          className={`profileupdationbox w-full md:w-[55%] flex flex-col justify-center items-center transition-all duration-700 ${
+            showEdit ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0 md:max-h-full md:opacity-100"
+          } overflow-hidden md:overflow-visible`}
+        >
           <div className="profile bg-violet-950 rounded-3xl p-6 flex flex-col border-[5px] border-fuchsia-400 text-white w-full max-w-[500px] shadow-lg">
-
             <p className="text-2xl font-semibold text-center mb-4">Edit Profile</p>
 
             <div className="flex flex-col gap-4">
@@ -187,38 +206,38 @@ const Profile = () => {
                 </div>
               </div>
 
-              {/* Skills (moved above About) */}
+              {/* Skills */}
               <div className="skills relative">
                 <p className="text-lg mb-2">Skills:</p>
 
                 {/* Selected Skills */}
                 <div className="flex flex-wrap gap-2 mb-2">
-                  {Array.isArray(formData.skills) && formData.skills.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-fuchsia-600/40 border border-fuchsia-400 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
-                    >
-                      {skill}
-                      <button
-                        type="button"
-                        className="text-xs text-white/80 hover:text-white"
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            skills: prev.skills.filter((s) => s !== skill)
-                          }));
-                        }}
+                  {Array.isArray(formData.skills) &&
+                    formData.skills.map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-fuchsia-600/40 border border-fuchsia-400 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
                       >
-                        ✕
-                      </button>
-                    </span>
-                  ))}
+                        {skill}
+                        <button
+                          type="button"
+                          className="text-xs text-white/80 hover:text-white"
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              skills: prev.skills.filter((s) => s !== skill)
+                            }))
+                          }
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
                 </div>
 
-                {/* Input Field */}
+                {/* Skill Input */}
                 <input
                   type="text"
-                  name="skills"
                   placeholder="Type a skill..."
                   className="bg-violet-900 rounded-2xl p-3 w-full text-white"
                   value={formData.skillInput}
@@ -277,11 +296,9 @@ const Profile = () => {
                   Update Profile
                 </button>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

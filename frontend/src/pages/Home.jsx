@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/appContext';
-import logo from '../assets/logo.svg';
 import { FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const Home = () => {
@@ -8,12 +7,8 @@ const Home = () => {
 
   // Safely format fields without changing your layout
   const displayName = userData?.name || 'Hello Dev';
-  const displaySkills = Array.isArray(userData?.skills)
-    ? userData.skills.join(', ')
-    : (userData?.skills || 'Web Developer');
-  const displayAbout =
-    userData?.about ||
-    'Uses Bootstrap & Laravel. Loves design via Figma. Lorem ipsum dolor sit amet.';
+  const displaySkills = Array.isArray(userData?.skills) ? userData.skills.join(', ') : (userData?.skills || 'Web Developer');
+  const displayAbout = userData?.about || 'Uses Bootstrap & Laravel. Loves design via Figma. Lorem ipsum dolor sit amet.';
   const displayEmail = userData?.email || 'example@email.com';
   const profileImg = userData?.profile || '/assets/profile.png';
 
@@ -24,12 +19,8 @@ const Home = () => {
         <div className="profile w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex flex-col items-center justify-between text-white m-4 relative">
           {/* Profile Image header area */}
           <div className="w-full h-[10vh] relative mt-2">
-            <div className="w-6 h-6 rounded-full border-2 border-yellow-400 p-0.5 absolute top-0 left-0">
-              <span className="text-pink-600">
-                <img src={logo} alt="logo" />
-              </span>
-            </div>
-            <div className="w-20 h-20 rounded-full border-2 border-yellow-400 p-0.5 absolute top-8 right-[35%]">
+            
+            <div className="w-20 h-20 rounded-full border-2 border-yellow-400 p-0.5 absolute top-3 right-[35%]">
               <img
                 src={profileImg}
                 alt="Profile"
@@ -84,7 +75,7 @@ const Home = () => {
         </div>
 
         {/* RIGHT CHAT  */}
-        <div className="chat w-[22vw] bg-yellow-300 h-[50vh] rounded-3xl m-4"></div>
+        <div className="chat w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4"></div>
       </div>
     </div>
   );

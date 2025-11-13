@@ -16,6 +16,7 @@ import Profile from './pages/Profile.jsx';
 import Logout from './pages/Logout.jsx';
 import Requests_page from './pages/Requests_page.jsx';
 import Connections_page from './pages/Connections_page.jsx';
+import VerifyEmail from './pages/VerifyEmail.jsx'
 
 
 
@@ -58,16 +59,16 @@ const router = createBrowserRouter([
     element: <Profile />
   },
   {
-    path: "/logout",
-    element: <Logout />
-  },
-  {
     path: "/requests",
     element: <Requests_page />
   },
   {
     path: "/connections",
     element: <Connections_page />
+  },
+  {
+    path: "/verify-otp",
+    element: <VerifyEmail />
   }
 ])
 

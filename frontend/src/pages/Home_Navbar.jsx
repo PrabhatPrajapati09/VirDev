@@ -6,13 +6,38 @@ import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePersonAddAlt } from 'react-icons/md';
 import { GrGroup } from 'react-icons/gr';
 import { RxCross2 } from "react-icons/rx";
+import { useContext } from 'react';
+import { AppContext } from '../context/appContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const {userData, backendUrl, setUserData, setIsLoggedin } = useContext(AppContext);
+    const navigate = useNavigate();
+    const logout = async () => {
+        try {
+            const { data } = await axios.post(`${backendUrl}/api/auth/logout`, { withCredentials: true });
+            data.success ? setIsLoggedin(false) && setUserData(null) : toast.error(data.message); 
+            navigate('/');
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
 
+    const sendVerificationOtp = async () => {
+        try {
 
+            axios.defaults.withCredentials = true;
+            const { data } = await axios.post(`${backendUrl}/api/auth/send-verify-otp`, { withCredentials: true });
+            data.success ? toast.success(data.message) && navigate('/verify-otp') : toast.error(data.message); 
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
 
     return (
         <>
@@ -73,17 +98,16 @@ const Navbar = () => {
                                             Profile
                                         </NavLink>
 
-                                        <NavLink to="/verify"
-                                            onClick={() => setOpen(false)}
-                                            className="hover:text-pink-500 transition">
-                                            Verify
-                                        </NavLink>
+                                        {!userData.isUserVerified && <button
+                                            onClick={() => sendVerificationOtp() && setOpen(false) }
+                                            className="hover:text-pink-500 transition text-left">
+                                            Verify Email
+                                        </button>}
+                                    
 
-                                        <NavLink to="/logout"
-                                            onClick={() => setOpen(false)}
-                                            className="hover:text-red-500 transition">
+                                        <button className="hover:text-red-500 transition text-left" onClick={logout}>
                                             Logout
-                                        </NavLink>
+                                        </button>
 
                                     </div>
                                 </div>
