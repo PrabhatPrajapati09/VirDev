@@ -17,6 +17,7 @@ import Logout from './pages/Logout.jsx';
 import Requests_page from './pages/Requests_page.jsx';
 import Connections_page from './pages/Connections_page.jsx';
 import VerifyEmail from './pages/VerifyEmail.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/verify-otp",
     element: <VerifyEmail />
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />
   }
 ])
 

@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import transporter from "../config/nodemailer.js";
+import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE, WELCOME_TO_VIRDEV_TEMPLATE } from "../config/emailTemplates.js";
 
 
 export const register = async (req, res) => {
@@ -43,7 +44,8 @@ export const register = async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: email,
             subject: 'Welcome to VirDev',
-            text: `Hi ${firstname},\n\nWelcome to VirDev! Your account has been successfully created.\nVerify yourself by clicking the verify botton on the site.\n\nBest regards,\nVirDev Team`,
+            // text: `Hi ${firstname},\n\nWelcome to VirDev! Your account has been successfully created.\nVerify yourself by clicking the verify botton on the site.\n\nBest regards,\nVirDev Team`,
+            html: WELCOME_TO_VIRDEV_TEMPLATE.replace('{{name}}', user.firstname),
         }
 
         await transporter.sendMail(mailOptions);
@@ -139,7 +141,8 @@ export const sendVerificationOtp = async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Verification OTP',
-            text: `Hi,\n\nYour verification OTP is: ${otp}\n\nPlease use this OTP to verify your account.\n\nBest regards,\nVirDev Team`,
+            // text: `Hi,\n\nYour verification OTP is: ${otp}\n\nPlease use this OTP to verify your account.\n\nBest regards,\nVirDev Team`,
+            html: EMAIL_VERIFY_TEMPLATE.replace('{{otp}}', otp).replace('{{email}}', user.email),
         }
 
         transporter.sendMail(mailOptions);
@@ -220,6 +223,7 @@ export const sendResetPasswordEmail = async (req, res) => {
             to: user.email,
             subject: 'Reset Password',
             text: `Hi,\n\nYour reset password OTP is: ${otp}\n\nPlease use this OTP to reset your password.\n\nBest regards,\nVirDev Team`,
+            html: PASSWORD_RESET_TEMPLATE.replace('{{otp}}', otp).replace('{{email}}', user.email),
         };
 
         transporter.sendMail(mailOptions);
@@ -260,6 +264,16 @@ export const resetPassword = async (req, res) => {
         user.resetOtpExpireAt = 0;
 
         await user.save();
+
+        const mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: user.email,
+            subject: 'Password Reset',
+            // text: `Hi,\n\nYour password has been reset successfully.\n\nBest regards,\nVirDev Team`,
+            html: PASSWORD_RESET_SUCCESS_TEMPLATE.replace('{{name}}', user.firstname),
+        };
+
+        transporter.sendMail(mailOptions);
 
         return res.json({ success: true, message: 'Password reset successfully' });
     }

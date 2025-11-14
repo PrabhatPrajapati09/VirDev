@@ -65,7 +65,7 @@ const LoginForm = () => {
 
           </div>
 
-          <p className='text-right text-blue-900 hover:text-blue-700 hover:underline cursor-pointer mb-4' >Forgot Password??</p>
+          <p className='text-right text-blue-900 hover:text-blue-700 hover:underline cursor-pointer mb-4' onClick={() => navigate("/reset-password")} >Forgot Password??</p>
 
           <button className="loginbutton py-2.5 w-full rounded-full bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 hover:scale-[1.03] transition-transform font-medium ">Login</button>
         </form>

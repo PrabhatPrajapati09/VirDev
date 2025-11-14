@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import logo from '../assets/logo.svg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { AppContext } from '../context/appContext';
 const VerifyEmail = () => {
     const navigate = useNavigate();
     const inputRefs = useRef([]);
-    const { backendUrl, getUserData } = useContext(AppContext);
+    const { backendUrl, getUserData, isLoggedin, userData } = useContext(AppContext);
     axios.defaults.withCredentials = true;
 
     const handleInput = (e, index) => {
@@ -57,14 +57,15 @@ const VerifyEmail = () => {
         }
     };
 
+    useEffect(()=>{
+        isLoggedin && userData && userData.isUserVerified && navigate("/home");
+    })
+
     return (
         <div className='h-screen bg-slate-950 flex justify-center items-center'>
 
             {/* Logo */}
-            <div 
-                className="logo font-bold text-3xl md:text-4xl flex gap-2 cursor-pointer absolute top-10 left-14"
-                onClick={() => navigate("/login")}
-            >
+            <div className="logo font-bold text-3xl md:text-4xl flex gap-2 cursor-pointer absolute top-10 left-14" onClick={() => navigate("/login")}>
                 <span className="w-8 md:w-10 text-fuchsia-500">
                     <img src={logo} alt="VirDev Logo" />
                 </span>
