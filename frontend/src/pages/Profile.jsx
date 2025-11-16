@@ -10,7 +10,7 @@ const skillSuggestions = [
   "Python", "Django", "Flask", "TypeScript", "Vue.js", "Angular",
   "Next.js", "Tailwind CSS", "C++", "Java", "C#", "SQL", "PostgreSQL",
   "Firebase", "AWS", "Docker", "Kubernetes", "Git", "Figma", "UI/UX",
-  "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity"
+  "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity","React, Node.js, MongoDB, Express"
 ];
 
 const Profile = () => {

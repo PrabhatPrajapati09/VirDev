@@ -60,3 +60,37 @@ export const updateUserData = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error." });
   }
 };
+
+
+export const getSuggestions = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const user = await User.findById(userId).select("skills");
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // if no skills → no suggestions
+        if (!user.skills || user.skills.length === 0) {
+            return res.json({ success: true, suggestions: [] });
+        }
+
+        const suggestions = await User.find({
+            _id: { $ne: userId },
+            skills: { $in: user.skills }   // matches ANY skill
+        }).select("username skills about profile");
+
+        return res.json({
+            success: true,
+            suggestions
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "Server error fetching suggestions"
+        });
+    }
+};
