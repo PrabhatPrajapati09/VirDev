@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Connection from "../models/Connections.js";
 
 export const getUserData = async (req, res) => {
     const { userId } = req.body;
@@ -63,34 +64,48 @@ export const updateUserData = async (req, res) => {
 
 
 export const getSuggestions = async (req, res) => {
-    try {
-        const userId = req.userId;
+  try {
+    const userId = req.userId;
+    // console.log("USER ID:", userId);
 
-        const user = await User.findById(userId).select("skills");
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
-        }
-
-        // if no skills → no suggestions
-        if (!user.skills || user.skills.length === 0) {
-            return res.json({ success: true, suggestions: [] });
-        }
-
-        const suggestions = await User.find({
-            _id: { $ne: userId },
-            skills: { $in: user.skills }   // matches ANY skill
-        }).select("username skills about profile");
-
-        return res.json({
-            success: true,
-            suggestions
-        });
-
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            success: false,
-            message: "Server error fetching suggestions"
-        });
+    const me = await User.findById(userId).select("skills");
+    if (!me) {
+      return res.status(404).json({ success:false, message:"User not found" });
     }
+
+    // console.log("MY SKILLS:", me.skills);
+
+    const conns = await Connection.find({
+      $or: [
+        { senderId: userId },
+        { receiverId: userId }
+      ],
+      status: { $in: ["pending", "accepted"] }
+    });
+
+    // console.log("CONNECTIONS FOUND:", conns);
+
+    const excludedIds = new Set();
+    conns.forEach(c => {
+      excludedIds.add(String(c.senderId));
+      excludedIds.add(String(c.receiverId));
+    });
+    excludedIds.add(String(userId));
+
+    // console.log("EXCLUDED IDS:", [...excludedIds]);
+
+    const suggestions = await User.find({
+      _id: { $nin: [...excludedIds] },
+      skills: { $in: me.skills }
+    }).select("firstname lastname username skills about profilePic");
+
+    return res.json({
+      success: true,
+      suggestions
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success:false, message:"Server error" });
+  }
 };

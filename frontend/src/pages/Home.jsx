@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/appContext";
 import { FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Home = () => {
-  const { userData, suggestions, getSuggestions, isLoggedin } = useContext(AppContext);
+  const { userData, suggestions, getSuggestions, isLoggedin, backendUrl } = useContext(AppContext);
 
   const [index, setIndex] = useState(0);
 
@@ -18,16 +20,35 @@ const Home = () => {
   // current suggestion
   const current = suggestions[index] || null;
 
-  // Next/Reject handler
-  const next = () => {
+  // accept/next handler
+  const sendConnection = async (receiverId, message) => {
     if (index + 1 < suggestions.length) {
       setIndex(index + 1);
     } else {
-      setIndex(0); // optional: loop
+      setIndex(0); 
+    }
+
+    try {
+      const { data } = await axios.post(`${backendUrl}/api/connections/send/${receiverId}`, { message }, { withCredentials: true });
+      if (data.success) {
+        toast.success("Request sent");
+        // mark suggestion as requested
+        getSuggestions();
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Error sending request");
     }
   };
 
-  const reject = () => next();
+  //reject handler
+
+  const ignore = () => {
+    if (index + 1 < suggestions.length) {
+      setIndex(index + 1);
+    } else {
+      setIndex(0);
+    }
+  };
 
   // Left profile data
   const displayName = userData?.name || "Hello Dev";
@@ -76,7 +97,7 @@ const Home = () => {
         </div>
 
         {/* CENTER FEED (SUGGESTIONS) */}
-        <div className="feed w-[60vw] h-[70vh] rounded-3xl flex justify-center">
+        <div className="feed w-[60vw] h-[75vh] rounded-3xl flex justify-center">
           <div className="suggestion w-[35%] h-[70%] bg-violet-950 rounded-2xl m-3 p-3 flex justify-center flex-col items-center gap-4">
 
             {current ? (
@@ -92,7 +113,7 @@ const Home = () => {
                   {current.username}
                 </div>
 
-                <div className="skill text-l text-fuchsia-200 font-semibold">
+                <div className="skill text-l text-fuchsia-200 text-center">
                   {Array.isArray(current.skills)
                     ? current.skills.join(", ")
                     : current.skills}
@@ -102,18 +123,33 @@ const Home = () => {
                   {current.about || "No bio available."}
                 </p>
 
-                <div className="buttons flex justify-evenly gap-4 w-[100%]">
+                <div className="buttons flex justify-evenly gap-4 w-[100%] flex-wrap ">
                   <button
-                    className="interested bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-3 py-2 text-lg text-white"
-                    onClick={reject}
+                    className="ignore bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-4 py-2 text-lg text-white"
+                    onClick={ignore}
                   >
-                    Reject
+                    Ignore
                   </button>
+
                   <button
-                    className="connect bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-3 py-2 text-lg text-white"
-                    onClick={next}
+                    className="connect bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-4 py-2 text-lg text-white"
+                    onClick={() => sendConnection(
+                      current._id,
+                    "I like your profile and I would like to connect with you.")}
                   >
                     Connect
+                  </button>
+
+                  <button
+                    className="interested bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500 rounded-3xl p-4 py-2 text-lg text-white"
+                    onClick={() =>
+                      sendConnection(
+                        current._id,
+                        "I liked your idea and I would like to be a part of it in development."
+                      )
+                    }
+                  >
+                    Interested in Idea
                   </button>
                 </div>
               </>
