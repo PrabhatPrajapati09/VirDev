@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AiOutlineUser, } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineBulb} from "react-icons/ai";
 import logo from '../assets/logo.svg'
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePersonAddAlt } from 'react-icons/md';
@@ -67,6 +67,11 @@ const Navbar = () => {
                                 <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/connections">
                                     <div className="flex h-[70px] w-[130px] justify-center items-center flex-wrap">
                                         <span className="text-4xl"><GrGroup /></span> Connections
+                                    </div>
+                                </NavLink>
+                                <NavLink className={({ isActive }) => isActive ? "border-[1px] border-white rounded-full px-2.5 text-pink-600" : "active"} to="/ideas">
+                                    <div className="flex h-[70px] w-[80px] justify-center items-center flex-wrap">
+                                        <span className="text-4xl"><AiOutlineBulb /></span> Ideas
                                     </div>
                                 </NavLink>
                             </div>

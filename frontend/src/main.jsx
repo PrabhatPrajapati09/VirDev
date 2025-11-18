@@ -13,11 +13,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { authLoader } from "./loader/authLoader";
 import { AuthProvider } from "./context/authContext";
 import Profile from './pages/Profile.jsx';
-import Logout from './pages/Logout.jsx';
 import Requests_page from './pages/Requests_page.jsx';
 import Connections_page from './pages/Connections_page.jsx';
-import VerifyEmail from './pages/VerifyEmail.jsx'
-import ResetPassword from './pages/ResetPassword.jsx'
+import VerifyEmail from './pages/VerifyEmail.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+import Ideas_Page from './pages/Ideas_Page.jsx';
 
 
 
@@ -74,6 +74,10 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword />
+  },
+  {
+    path: "/ideas",
+    element:<Ideas_Page />
   }
 ])
 

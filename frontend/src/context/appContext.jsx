@@ -14,6 +14,7 @@ export function AppContextProvider(props) {
     const [receivedRequests, setReceivedRequests] = useState([]);
     const [sentRequests, setSentRequests] = useState([]);
     const [connections, setConnections] = useState([]);
+    const [ideas, setIdeas] = useState([]);
 
 
     const getAuthState = async () => {
@@ -82,6 +83,21 @@ export function AppContextProvider(props) {
         }
     };
 
+    const getIdeas = async (opts = {}) => {
+        try {
+            const params = new URLSearchParams();
+            if (opts.category) params.append("category", opts.category);
+            if (opts.page) params.append("page", opts.page);
+            if (opts.limit) params.append("limit", opts.limit);
+
+            const url = `${backendUrl}/api/user/ideas${params.toString() ? `?${params.toString()}` : ""}`;
+            const { data } = await axios.get(url);
+            if (data.success) setIdeas(data.ideas || []);
+        } catch (err) {
+            console.error("getIdeas error", err);
+        }
+    };
+
     useEffect(() => {
         getAuthState();
         getUserData();
@@ -101,19 +117,13 @@ export function AppContextProvider(props) {
         <AppContext.Provider
             value={{
                 backendUrl,
-                isLoggedin,
-                setIsLoggedin,
-                userData,
-                setUserData,
-                getUserData,
-                suggestions,
-                getSuggestions,
-                receivedRequests,
-                getReceivedRequests,
-                sentRequests,
-                getSentRequests,
-                connections,
-                getConnections
+                isLoggedin,setIsLoggedin,
+                userData,setUserData,getUserData,
+                suggestions,getSuggestions,
+                receivedRequests,getReceivedRequests,
+                sentRequests,getSentRequests,
+                connections,getConnections,
+                ideas,getIdeas
             }}
         >
             {props.children}

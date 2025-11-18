@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
 
+const ideaSchema = new mongoose.Schema({
+    category:{
+        type: String,
+        required: true
+    },
+    description:{
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+})
+
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -61,9 +76,13 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String,
         default:''
+    },
+    ideas: {
+        type: [ideaSchema],
+        default:[]
     }
 
-});
+},{timestamps: true});
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 

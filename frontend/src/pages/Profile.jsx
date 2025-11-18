@@ -10,7 +10,12 @@ const skillSuggestions = [
   "Python", "Django", "Flask", "TypeScript", "Vue.js", "Angular",
   "Next.js", "Tailwind CSS", "C++", "Java", "C#", "SQL", "PostgreSQL",
   "Firebase", "AWS", "Docker", "Kubernetes", "Git", "Figma", "UI/UX",
-  "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity","React, Node.js, MongoDB, Express"
+  "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity", "React, Node.js, MongoDB, Express"
+];
+
+const IDEA_CATEGORIES = [
+  "Web Development", "Mobile Apps", "AI / Machine Learning", "DevOps", "Game Development",
+  "Open Source Tools", "Education / Learning", "Blockchain", "Cybersecurity", "UI / UX Design", "Data Science"
 ];
 
 const Profile = () => {
@@ -24,7 +29,9 @@ const Profile = () => {
     gender: '',
     about: '',
     skills: [],
-    skillInput: ''
+    skillInput: '',
+    ideaCategory: '',
+    ideaDescription: ''
   });
 
   const [showEdit, setShowEdit] = useState(false); // ✅ for mobile toggle
@@ -40,9 +47,11 @@ const Profile = () => {
         skills: Array.isArray(userData.skills)
           ? userData.skills
           : userData.skills
-          ? userData.skills.split(',').map(s => s.trim())
-          : [],
-        skillInput: ''
+            ? userData.skills.split(',').map(s => s.trim())
+            : [],
+        skillInput: '',
+        ideaCategory: userData.ideas?.[0]?.category || '',
+        ideaDescription: userData.ideas?.[0]?.description || ''
       });
     }
   }, [userData]);
@@ -71,6 +80,33 @@ const Profile = () => {
       toast.error(err.response?.data?.message || "Server error while updating profile");
     }
   };
+
+  const handleCreateIdea = async () => {
+    try {
+      if (!formData.ideaCategory || !formData.ideaDescription) {
+        return toast.error("Select a category and idea.");
+      }
+
+      const { data } = await axios.post(`${backendUrl}/api/user/idea`,
+        {
+          category: formData.ideaCategory,
+          description: formData.ideaDescription
+        },
+        { withCredentials: true }
+      )
+
+      if (data.success) {
+        toast.success("Idea Added Successfully!");
+        getUserData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Server error");
+
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 w-screen flex flex-col items-center text-white px-4 py-6">
@@ -142,9 +178,8 @@ const Profile = () => {
 
         {/* Profile Update Box (hidden by default on small screens) */}
         <div
-          className={`profileupdationbox w-full md:w-[55%] flex flex-col justify-center items-center transition-all duration-700 ${
-            showEdit ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0 md:max-h-full md:opacity-100"
-          } overflow-hidden md:overflow-visible`}
+          className={`profileupdationbox w-full md:w-[55%] flex flex-col justify-center items-center transition-all duration-700 ${showEdit ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0 md:max-h-full md:opacity-100"
+            } overflow-hidden md:overflow-visible`}
         >
           <div className="profile bg-violet-950 rounded-3xl p-6 flex flex-col border-[5px] border-fuchsia-400 text-white w-full max-w-[500px] shadow-lg">
             <p className="text-2xl font-semibold text-center mb-4">Edit Profile</p>
@@ -285,6 +320,23 @@ const Profile = () => {
                   value={formData.about}
                   onChange={handleChange}
                 />
+              </div>
+
+              {/* Idea category + description (skills above as requested) */}
+              <div>
+                <p className="text-lg">Idea Category</p>
+                <select name="ideaCategory" value={formData.ideaCategory} onChange={handleChange} className="bg-violet-900 rounded-2xl p-3 w-full">
+                  <option value="">Select category</option>
+                  {IDEA_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                </select>
+              </div>
+
+              <div>
+                <p className="text-lg">Idea Description</p>
+                <textarea name="ideaDescription" value={formData.ideaDescription} onChange={handleChange} className="bg-violet-900 rounded-2xl p-3 w-full" rows={5} />
+                <div className="flex gap-3 mt-3">
+                  <button onClick={handleCreateIdea} className="bg-fuchsia-600 px-4 py-2 rounded">Save Idea</button>
+                </div>
               </div>
 
               {/* Update Button */}
