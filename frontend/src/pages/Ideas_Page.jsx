@@ -3,12 +3,13 @@ import { AppContext } from "../context/appContext";
 import Home_Navbar from "./Home_Navbar";
 import { FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Ideas_Page = () => {
     const { userData, backendUrl } = useContext(AppContext);
     const [ideas, setIdeas] = useState([]);
+    const navigate = useNavigate();
 
-    // fetch ideas from backend
     const getIdeas = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/user/ideas`, {
@@ -17,9 +18,11 @@ const Ideas_Page = () => {
 
             if (data.success) {
                 setIdeas(data.ideas);
+            } else {
+                console.log("Failed:", data.message);
             }
         } catch (err) {
-            console.error(err);
+            console.error("Ideas fetch error:", err);
         }
     };
 
@@ -29,15 +32,13 @@ const Ideas_Page = () => {
 
     return (
         <div className="h-screen bg-slate-950">
-
             <Home_Navbar />
 
             <div className="w-screen pt-[15vh] flex justify-center gap-10">
 
-                {/* LEFT PROFILE CARD */}
+                {/* LEFT PROFILE */}
                 <div className="profile w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex flex-col items-center justify-between text-white m-4 relative">
 
-                    {/* Profile Pic */}
                     <div className="w-full h-[10vh] relative mt-2">
                         <div className="w-20 h-20 rounded-full border-2 border-yellow-400 p-0.5 absolute top-8 right-[35%]">
                             <img
@@ -47,7 +48,6 @@ const Ideas_Page = () => {
                         </div>
                     </div>
 
-                    {/* Name & Skills */}
                     <div className="text-center leading-tight">
                         <h2 className="text-2xl font-semibold">{userData?.name}</h2>
                         <p className="text-xl text-purple-300">
@@ -57,17 +57,14 @@ const Ideas_Page = () => {
                         </p>
                     </div>
 
-                    {/* About */}
                     <p className="text-l text-center px-2 text-white/80">
                         {userData?.about}
                     </p>
 
-                    {/* Email */}
                     <button className="text-sm px-2 py-1 bg-purple-600 hover:bg-purple-700 transition rounded-md">
                         {userData?.email}
                     </button>
 
-                    {/* Social Icons */}
                     <div className="flex justify-center gap-4 text-sm text-white/60">
                         <FaTwitter />
                         <FaInstagram />
@@ -76,19 +73,36 @@ const Ideas_Page = () => {
                 </div>
 
                 {/* CENTER IDEAS FEED */}
-                <div className="ideas-feed w-[60vw] h-[70vh] rounded-3xl overflow-y-auto p-6 flex flex-col items-center gap-6 scrollbar-hide">
+                <div className="ideas-feed w-[60vw] h-[70vh] bg-violet-900 rounded-3xl overflow-y-auto p-6 flex flex-col items-center gap-6 scrollbar-hide m-4">
 
-                    <h2 className="text-white text-2xl font-semibold mb-2">Ideas from Developers</h2>
+                    <div className="w-full flex justify-between items-center px-4">
+                        <h2 className="text-white text-2xl font-semibold">Ideas from Developers</h2>
+
+                        <div className="flex items-center gap-4">
+                            <button
+                                className="bg-purple-700 text-white px-4 py-2 rounded-2xl"
+                                onClick={() => navigate("/create-idea")}
+                            >
+                                Create Idea
+                            </button>
+
+                            <button
+                                className="bg-purple-700 px-4 py-2 rounded-2xl text-white hover:bg-purple-800"
+                                onClick={() => navigate("/my-ideas")}
+                            >
+                                My Ideas
+                            </button>
+                        </div>
+                    </div>
 
                     {ideas.length === 0 ? (
-                        <p className="text-gray-300 text-center">No ideas found</p>
+                        <p className="text-gray-300 text-center mt-4">No ideas found</p>
                     ) : (
                         ideas.map((idea) => (
                             <div
                                 key={idea.ideaId}
                                 className="idea-card w-[80%] bg-violet-950 rounded-2xl p-5 flex flex-col gap-4 shadow-lg"
                             >
-                                {/* Top: Author Info */}
                                 <div className="flex items-center gap-4">
                                     <div className="h-14 w-14 rounded-full bg-purple-500 overflow-hidden">
                                         <img
@@ -109,19 +123,13 @@ const Ideas_Page = () => {
                                     </div>
                                 </div>
 
-                                {/* Idea content */}
                                 <div>
-                                    <p className="text-fuchsia-300 font-semibold">
-                                        {idea.category}
-                                    </p>
-
-                                    <p className="text-white text-sm mt-2">
-                                        {idea.description}
-                                    </p>
+                                    <p className="text-fuchsia-300 font-semibold">{idea.category}</p>
+                                    <p className="text-white text-sm mt-2">{idea.title}</p>
+                                    <p className="text-white text-sm mt-2">{idea.description}</p>
                                 </div>
 
-                                {/* Action Buttons */}
-                                <div className="flex justify-end gap-4 mt-3">
+                                <div className="flex justify-end mt-3">
                                     <button className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl px-4 py-2 text-white font-semibold">
                                         I'm Interested
                                     </button>
@@ -131,10 +139,9 @@ const Ideas_Page = () => {
                     )}
                 </div>
 
-                {/* RIGHT CHAT BOX */}
+                {/* RIGHT EMPTY CHAT SECTION */}
                 <div className="chat w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4"></div>
             </div>
-
         </div>
     );
 };

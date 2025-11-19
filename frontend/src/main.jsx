@@ -18,7 +18,8 @@ import Connections_page from './pages/Connections_page.jsx';
 import VerifyEmail from './pages/VerifyEmail.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import Ideas_Page from './pages/Ideas_Page.jsx';
-
+import Create_Idea from './pages/Create_Idea.jsx';
+import Users_Ideas from './pages/Users_Ideas.jsx';
 
 
 const router = createBrowserRouter([
@@ -78,6 +79,14 @@ const router = createBrowserRouter([
   {
     path: "/ideas",
     element:<Ideas_Page />
+  },
+  {
+    path: "/create-idea",
+    element: <Create_Idea />
+  },
+  {
+    path: "/my-ideas",
+    element: <Users_Ideas />
   }
 ])
 

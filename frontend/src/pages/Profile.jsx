@@ -13,10 +13,6 @@ const skillSuggestions = [
   "Machine Learning", "Data Analysis", "DevOps", "Cybersecurity", "React, Node.js, MongoDB, Express"
 ];
 
-const IDEA_CATEGORIES = [
-  "Web Development", "Mobile Apps", "AI / Machine Learning", "DevOps", "Game Development",
-  "Open Source Tools", "Education / Learning", "Blockchain", "Cybersecurity", "UI / UX Design", "Data Science"
-];
 
 const Profile = () => {
   const { userData, backendUrl, getUserData } = useContext(AppContext);
@@ -29,9 +25,7 @@ const Profile = () => {
     gender: '',
     about: '',
     skills: [],
-    skillInput: '',
-    ideaCategory: '',
-    ideaDescription: ''
+    skillInput: ''
   });
 
   const [showEdit, setShowEdit] = useState(false); // ✅ for mobile toggle
@@ -49,9 +43,7 @@ const Profile = () => {
           : userData.skills
             ? userData.skills.split(',').map(s => s.trim())
             : [],
-        skillInput: '',
-        ideaCategory: userData.ideas?.[0]?.category || '',
-        ideaDescription: userData.ideas?.[0]?.description || ''
+        skillInput: ''
       });
     }
   }, [userData]);
@@ -81,32 +73,7 @@ const Profile = () => {
     }
   };
 
-  const handleCreateIdea = async () => {
-    try {
-      if (!formData.ideaCategory || !formData.ideaDescription) {
-        return toast.error("Select a category and idea.");
-      }
 
-      const { data } = await axios.post(`${backendUrl}/api/user/idea`,
-        {
-          category: formData.ideaCategory,
-          description: formData.ideaDescription
-        },
-        { withCredentials: true }
-      )
-
-      if (data.success) {
-        toast.success("Idea Added Successfully!");
-        getUserData();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Server error");
-
-    }
-  }
 
   return (
     <div className="min-h-screen bg-slate-900 w-screen flex flex-col items-center text-white px-4 py-6">
@@ -320,23 +287,6 @@ const Profile = () => {
                   value={formData.about}
                   onChange={handleChange}
                 />
-              </div>
-
-              {/* Idea category + description (skills above as requested) */}
-              <div>
-                <p className="text-lg">Idea Category</p>
-                <select name="ideaCategory" value={formData.ideaCategory} onChange={handleChange} className="bg-violet-900 rounded-2xl p-3 w-full">
-                  <option value="">Select category</option>
-                  {IDEA_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <p className="text-lg">Idea Description</p>
-                <textarea name="ideaDescription" value={formData.ideaDescription} onChange={handleChange} className="bg-violet-900 rounded-2xl p-3 w-full" rows={5} />
-                <div className="flex gap-3 mt-3">
-                  <button onClick={handleCreateIdea} className="bg-fuchsia-600 px-4 py-2 rounded">Save Idea</button>
-                </div>
               </div>
 
               {/* Update Button */}
