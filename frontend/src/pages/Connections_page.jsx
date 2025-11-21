@@ -1,104 +1,135 @@
-import React, { useContext, useEffect } from 'react'
-import { AppContext } from '../context/appContext';
-import Home_Navbar from './Home_Navbar';
-import { FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../context/appContext";
+import Home_Navbar from "./Home_Navbar";
+import { FaComments, FaTimes } from "react-icons/fa";
 
-const Connections_page = () => {
+const Connections_Page = () => {
+  const { userData, connections, getConnections } = useContext(AppContext);
 
-    const { userData, connections, getConnections } = useContext(AppContext);
+  const [openChat, setOpenChat] = useState(false);
 
-    useEffect(() => {
-        getConnections();
-    }, []);
+  useEffect(() => {
+    getConnections();
+  }, []);
 
-    return (
-        <div className="h-screen bg-slate-950">
+  return (
+    <div className="min-h-screen bg-slate-950">
+      <Home_Navbar />
 
-            <Home_Navbar />
+      <div className="pt-[15vh] w-full flex justify-center px-4">
+        <div className="w-full max-w-[1400px] flex gap-10">
 
-            <div className="w-screen pt-[15vh] flex justify-center gap-10">
-
-                {/* LEFT PROFILE */}
-                <div className="profile w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex flex-col items-center justify-between text-white m-4 relative">
-
-                    <div className="w-full h-[10vh] relative mt-2">
-                        <div className="w-20 h-20 rounded-full border-2 border-yellow-400 p-0.5 absolute top-8 right-[35%]">
-                            <img
-                                src={userData?.profilePic || "/assets/profile.png"}
-                                className="w-full h-full object-cover rounded-full"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="text-center leading-tight">
-                        <h2 className="text-2xl font-semibold">{userData?.name}</h2>
-                        <p className="text-xl text-purple-300">
-                            {Array.isArray(userData?.skills) ? userData.skills.join(", ") : userData?.skills}
-                        </p>
-                    </div>
-
-                    <p className="text-l text-center px-2 text-white/80">
-                        {userData?.about}
-                    </p>
-
-                    <button className="text-sm px-2 py-1 bg-purple-600 hover:bg-purple-700 transition rounded-md">
-                        {userData?.email}
-                    </button>
-
-                    <div className="flex justify-center gap-4 text-sm text-white/60">
-                        <FaTwitter />
-                        <FaInstagram />
-                        <FaGithub />
-                    </div>
-
-                </div>
-
-                {/* CONNECTIONS LIST */}
-                <div className="requests w-[60vw] h-[70vh] rounded-3xl flex justify-center items-start py-6 overflow-y-auto">
-
-                    {connections.length === 0 ? (
-                        <p className="text-white text-xl">No connections yet</p>
-                    ) : (
-                        connections.map((user, index) => (
-                            <div
-                                key={index}
-                                className="request w-[80%] bg-violet-950 rounded-2xl m-3 p-4 flex items-center justify-between gap-6"
-                            >
-                                <div className="flex items-center gap-4 w-[75%]">
-
-                                    <div className="h-20 w-20 rounded-full bg-fuchsia-400 overflow-hidden shrink-0">
-                                        <img src={user.profilePic || "/assets/profile.png"} className="w-full h-full object-cover" />
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <p className="text-2xl text-white font-semibold">
-                                            {user.firstname} {user.lastname}
-                                        </p>
-                                        <p className="text-lg text-fuchsia-200 font-semibold">
-                                            {Array.isArray(user.skills) ? user.skills.join(", ") : user.skills}
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                                <div className="flex flex-col gap-3 w-[25%]">
-                                    <button className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl py-2 text-white font-semibold">
-                                        Message
-                                    </button>
-                                </div>
-                            </div>
-                        ))
-                    )}
-
-                </div>
-
-                {/* RIGHT CHAT */}
-                <div className='chat w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4'></div>
-
+          {/* ------------------------------
+              LEFT PROFILE (Desktop Only)
+          ------------------------------ */}
+          <div className="hidden lg:flex w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white m-4">
+            <div className="relative mt-2 flex justify-center w-full">
+              <img
+                src={userData?.profilePic || "/assets/profile.png"}
+                className="w-24 h-24 rounded-full border-2 border-yellow-400 object-cover"
+              />
             </div>
 
-        </div>
-    )
-}
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold">{userData?.name}</h2>
+              <p className="text-purple-300">
+                {Array.isArray(userData?.skills)
+                  ? userData.skills.join(", ")
+                  : userData?.skills}
+              </p>
+            </div>
 
-export default Connections_page;
+            <p className="text-sm text-center px-3 text-white/80">
+              {userData?.about}
+            </p>
+
+            <button className="text-sm px-3 py-1 bg-purple-600 rounded-md">
+              {userData?.email}
+            </button>
+          </div>
+
+          {/* -----------------------------------
+              CONNECTIONS LIST (Responsive)
+          ----------------------------------- */}
+          <div className="w-full lg:w-[60vw] h-[75vh] rounded-3xl overflow-y-auto flex flex-col items-center gap-6 p-6 scrollbar-hide">
+
+            <h2 className="text-white text-2xl font-semibold">Connections</h2>
+
+            {connections.length === 0 ? (
+              <p className="text-gray-300 text-lg">No connections yet</p>
+            ) : (
+              connections.map((user, index) => (
+                <div
+                  key={index}
+                  className="w-[90%] bg-violet-950 rounded-2xl p-5 flex justify-between gap-6"
+                >
+                  <div className="flex gap-4 w-[75%]">
+                    <div className="h-20 w-20 rounded-full bg-fuchsia-500 overflow-hidden">
+                      <img
+                        src={user.profilePic || "/assets/profile.png"}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div>
+                      <p className="text-2xl font-semibold text-white">
+                        {user.firstname} {user.lastname}
+                      </p>
+                      <p className="text-fuchsia-200 font-semibold">
+                        {Array.isArray(user.skills)
+                          ? user.skills.join(", ")
+                          : user.skills}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col justify-center w-[25%]">
+                    <button className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white rounded-3xl py-2">
+                      Message
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* -------------------------
+              RIGHT CHAT (Desktop Only)
+          ------------------------- */}
+          <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4"></div>
+        </div>
+      </div>
+
+      {/* -------------------------
+          Floating Chat Button (Mobile)
+      ------------------------- */}
+      <button
+        className="lg:hidden fixed bottom-6 right-6 bg-violet-900 text-white p-4 rounded-full text-2xl shadow-xl"
+        onClick={() => setOpenChat(true)}
+      >
+        <FaComments />
+      </button>
+
+      {/* -------------------------
+          Slide-Up Chat (Mobile)
+      ------------------------- */}
+      {openChat && (
+        <div className="fixed bottom-0 left-0 w-full h-[55vh] bg-violet-900 rounded-t-3xl p-4 shadow-2xl animate-slideUp z-50">
+          <button
+            className="text-white text-2xl absolute top-4 right-4"
+            onClick={() => setOpenChat(false)}
+          >
+            <FaTimes />
+          </button>
+
+          <h2 className="text-white text-xl font-semibold mb-3">Messages</h2>
+          <div className="text-gray-300 text-sm">
+            Chat system coming soon...
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Connections_Page;

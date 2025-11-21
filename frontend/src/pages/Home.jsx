@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/appContext";
-import { FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { FaComments, FaTimes } from "react-icons/fa";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Home = () => {
-  const { userData, suggestions, getSuggestions, isLoggedin, backendUrl } = useContext(AppContext);
+  const { userData, suggestions, getSuggestions, isLoggedin, backendUrl } =
+    useContext(AppContext);
 
   const [index, setIndex] = useState(0);
+  const [openChat, setOpenChat] = useState(false); // mobile chat open/close
 
-  // Fetch suggestions when user logs in
   useEffect(() => {
     if (isLoggedin) {
       getSuggestions();
@@ -17,22 +18,24 @@ const Home = () => {
     }
   }, [isLoggedin]);
 
-  // current suggestion
   const current = suggestions[index] || null;
 
-  // accept/next handler
+  const next = () => {
+    setIndex((prev) => (prev + 1 < suggestions.length ? prev + 1 : 0));
+  };
+
   const sendConnection = async (receiverId, message) => {
-    if (index + 1 < suggestions.length) {
-      setIndex(index + 1);
-    } else {
-      setIndex(0); 
-    }
+    next();
 
     try {
-      const { data } = await axios.post(`${backendUrl}/api/connections/send/${receiverId}`, { message }, { withCredentials: true });
+      const { data } = await axios.post(
+        `${backendUrl}/api/connections/send/${receiverId}`,
+        { message },
+        { withCredentials: true }
+      );
+
       if (data.success) {
         toast.success("Request sent");
-        // mark suggestion as requested
         getSuggestions();
       }
     } catch (err) {
@@ -40,108 +43,86 @@ const Home = () => {
     }
   };
 
-  //reject handler
-
-  const ignore = () => {
-    if (index + 1 < suggestions.length) {
-      setIndex(index + 1);
-    } else {
-      setIndex(0);
-    }
-  };
-
-  // Left profile data
-  const displayName = userData?.name || "Hello Dev";
-  const displaySkills = Array.isArray(userData?.skills)
-    ? userData.skills.join(", ")
-    : userData?.skills || "Web Developer";
-
-  const displayAbout =
-    userData?.about ||
-    "Uses Bootstrap & Laravel. Loves design via Figma. Lorem ipsum dolor sit amet.";
-
-  const displayEmail = userData?.email || "example@email.com";
-
   return (
-    <div className="h-screen bg-slate-950">
-      <div className="w-screen pt-[15vh] flex justify-center gap-10">
+    <div className="min-h-screen bg-slate-950 pt-[15vh] flex justify-center">
 
-        {/* LEFT PROFILE CARD */}
-        <div className="profile w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex flex-col items-center justify-between text-white m-4 relative">
+      {/* ===== DESKTOP LAYOUT WRAPPER ===== */}
+      <div className="w-full max-w-[1400px] flex justify-center gap-10 px-4">
 
-          <div className="w-full h-[10vh] relative mt-2">
-            <div className="w-20 h-20 rounded-full border-2 border-yellow-400 p-0.5 absolute top-3 right-[35%]">
-              <img
-                src={userData?.profile || "/assets/profile.png"}
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
+        {/* LEFT PROFILE (hidden on mobile) */}
+        <div className="hidden lg:flex w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white">
+          <img
+            src={userData?.profilePic || "/assets/profile.png"}
+            className="w-24 h-24 rounded-full border-2 border-yellow-400 object-cover"
+          />
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold">{userData?.name}</h2>
+            <p className="text-purple-300 text-sm">
+              {Array.isArray(userData?.skills)
+                ? userData.skills.join(", ")
+                : userData?.skills}
+            </p>
           </div>
-
-          <div className="text-center leading-tight">
-            <h2 className="text-2xl font-semibold">{displayName}</h2>
-            <p className="text-l text-purple-300">{displaySkills}</p>
-          </div>
-
-          <p className="text-l text-center px-2 text-white/80">{displayAbout}</p>
-
-          <button className="text-sm px-2 py-1 bg-purple-600 hover:bg-purple-700 transition rounded-md">
-            {displayEmail}
-          </button>
-
-          <div className="flex justify-center gap-4 text-sm text-white/60">
-            <FaTwitter />
-            <FaInstagram />
-            <FaGithub />
-          </div>
+          <p className="text-center text-white/80 text-sm px-3">
+            {userData?.about}
+          </p>
         </div>
 
-        {/* CENTER FEED (SUGGESTIONS) */}
-        <div className="feed w-[60vw] h-[75vh] rounded-3xl flex justify-center">
-          <div className="suggestion w-[35%] h-[70%] bg-violet-950 rounded-2xl m-3 p-3 flex justify-center flex-col items-center gap-4">
+        {/* MAIN SUGGESTIONS CARD */}
+        <div className="w-full lg:w-[60vw] h-[75vh] bg-transparent flex justify-center">
+          <div className="w-full sm:w-[70%] h-[70%] bg-violet-950 rounded-2xl p-5 flex flex-col items-center gap-5">
 
             {current ? (
               <>
-                <div className="profileimg h-[30%] w-[38%] rounded-full overflow-hidden bg-fuchsia-400">
+                {/* PROFILE IMAGE */}
+                <div className="h-32 w-32 rounded-full overflow-hidden bg-fuchsia-400">
                   <img
-                    src={current.profile || "/assets/profile.png"}
+                    src={current.profilePic || "/assets/profile.png"}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
-                <div className="name text-2xl text-white font-semibold">
+                {/* NAME */}
+                <div className="text-white text-2xl font-semibold text-center">
                   {current.username}
                 </div>
 
-                <div className="skill text-l text-fuchsia-200 text-center">
+                {/* SKILLS */}
+                <div className="text-fuchsia-200 text-center text-sm">
                   {Array.isArray(current.skills)
-                    ? current.skills.join(", ")
+                    ? current.skills.join(" • ")
                     : current.skills}
                 </div>
 
-                <p className="about text-center text-white text-sm px-2">
+                {/* ABOUT */}
+                <p className="text-white text-center text-sm px-3">
                   {current.about || "No bio available."}
                 </p>
 
-                <div className="buttons flex justify-evenly gap-4 w-[100%] flex-wrap ">
+                {/* BUTTONS */}
+                <div className="flex flex-wrap gap-4 justify-center mt-3">
+
                   <button
-                    className="ignore bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-4 py-2 text-lg text-white"
-                    onClick={ignore}
+                    className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl px-6 py-2 text-white"
+                    onClick={next}
                   >
                     Ignore
                   </button>
 
                   <button
-                    className="connect bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl p-4 py-2 text-lg text-white"
-                    onClick={() => sendConnection(
-                      current._id,
-                    "I like your profile and I would like to connect with you.")}
+                    className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 rounded-3xl px-6 py-2 text-white"
+                    onClick={() =>
+                      sendConnection(
+                        current._id,
+                        "I like your profile and I would like to connect with you."
+                      )
+                    }
                   >
                     Connect
                   </button>
 
                   <button
-                    className="interested bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500 rounded-3xl p-4 py-2 text-lg text-white"
+                    className="bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500 rounded-3xl px-6 py-2 text-white"
                     onClick={() =>
                       sendConnection(
                         current._id,
@@ -151,17 +132,47 @@ const Home = () => {
                   >
                     Interested in Idea
                   </button>
+
                 </div>
               </>
             ) : (
-              <p className="text-white text-center text-lg">No Suggestions Found</p>
+              <p className="text-white text-lg">No Suggestions Found</p>
             )}
           </div>
         </div>
 
-        {/* RIGHT CHAT */}
-        <div className='chat w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4'></div>
+        {/* RIGHT CHAT BOX (hidden on mobile) */}
+        <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl"></div>
       </div>
+
+      {/* ========== FLOATING MESSAGE BUTTON (MOBILE ONLY) ========== */}
+      <button
+        className="lg:hidden fixed bottom-6 right-6 bg-violet-900 text-white p-4 rounded-full shadow-lg text-2xl"
+        onClick={() => setOpenChat(true)}
+      >
+        <FaComments />
+      </button>
+
+      {/* ===== MOBILE CHAT SLIDE-UP ===== */}
+      {openChat && (
+        <div className="lg:hidden fixed bottom-0 left-0 w-full h-[50vh] bg-violet-900 rounded-t-3xl p-4 shadow-2xl z-50 animate-slideUp">
+
+          <button
+            className="text-white text-2xl absolute top-4 right-4"
+            onClick={() => setOpenChat(false)}
+          >
+            <FaTimes />
+          </button>
+
+          <h2 className="text-white text-xl font-semibold mb-3">Messages</h2>
+
+          <div className="text-gray-300 text-sm">
+            {/* your chat UI here */}
+            Chat UI Coming Soon...
+          </div>
+
+        </div>
+      )}
     </div>
   );
 };
