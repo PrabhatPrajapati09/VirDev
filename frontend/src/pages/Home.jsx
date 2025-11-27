@@ -47,10 +47,10 @@ const Home = () => {
     <div className="min-h-screen bg-slate-950 pt-[15vh] flex justify-center">
 
       {/* ===== DESKTOP LAYOUT WRAPPER ===== */}
-      <div className="w-full max-w-[1400px] flex justify-center gap-10 px-4">
+      <div className="w-full flex justify-center gap-10 px-4">
 
         {/* LEFT PROFILE (hidden on mobile) */}
-        <div className="hidden lg:flex w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white">
+        <div className="hidden lg:flex w-[20vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white m-4">
           <img
             src={userData?.profilePic || "/assets/profile.png"}
             className="w-24 h-24 rounded-full border-2 border-yellow-400 object-cover"
@@ -69,7 +69,7 @@ const Home = () => {
         </div>
 
         {/* MAIN SUGGESTIONS CARD */}
-        <div className="w-full lg:w-[60vw] h-[75vh] bg-transparent flex justify-center">
+        <div className="w-full lg:w-[60vw] h-[75vh] bg-transparent flex justify-center m-4">
           <div className="w-full sm:w-[70%] h-[70%] bg-violet-950 rounded-2xl p-5 flex flex-col items-center gap-5">
 
             {current ? (
@@ -142,7 +142,7 @@ const Home = () => {
         </div>
 
         {/* RIGHT CHAT BOX (hidden on mobile) */}
-        <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl"></div>
+        <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4"></div>
       </div>
 
       {/* ========== FLOATING MESSAGE BUTTON (MOBILE ONLY) ========== */}

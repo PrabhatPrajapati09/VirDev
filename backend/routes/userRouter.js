@@ -4,6 +4,8 @@ import { getSuggestions, getUserData } from "../controllers/userController.js";
 import { verifyUser } from "../middleware/verifyUser.js";
 import { updateUserData } from "../controllers/userController.js";
 import { createIdea, getIdeas, getMyIdeas, deleteIdea } from "../controllers/ideaController.js";
+import upload from "../middleware/upload.js";
+import { updateProfilePic } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
@@ -14,6 +16,7 @@ userRouter.post("/idea", userAuth, createIdea);
 userRouter.get("/ideas", userAuth, getIdeas);
 userRouter.get("/myideas", userAuth, getMyIdeas);
 userRouter.delete("/delete-idea/:ideaId", userAuth, deleteIdea);
+userRouter.post("/profile-pic", userAuth, upload.single("profilePic"), updateProfilePic);
 
 
 export default userRouter;

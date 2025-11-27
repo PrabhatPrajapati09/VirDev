@@ -32,7 +32,7 @@ const Ideas_Page = () => {
       <Home_Navbar />
 
       <div className="pt-[15vh] w-full flex justify-center px-4">
-        <div className="w-full max-w-[1400px] flex gap-10">
+        <div className="w-full flex gap-10">
 
           {/* --------------------------------------
               LEFT PROFILE (Desktop Only)

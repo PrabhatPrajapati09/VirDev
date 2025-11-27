@@ -59,14 +59,14 @@ const Requests_Page = () => {
     <div className="min-h-screen bg-slate-950">
       <Home_Navbar />
 
-      <div className="pt-[15vh] w-full flex justify-center px-4">
-        <div className="w-full max-w-[1400px] flex gap-10">
+      <div className="pt-[15vh] w-full flex justify-center">
+        <div className="w-screen flex mx-0">
 
           {/* -------------------
               LEFT PROFILE (Desktop only)
           -------------------- */}
-          <div className="hidden lg:flex w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white">
-            <div className="w-full relative mt-2 flex justify-center">
+          <div className="hidden lg:flex w-[18vw] h-[50vh] bg-violet-950 rounded-3xl p-3 flex-col items-center justify-between text-white m-4">
+            <div className="w-screen relative mt-2 flex justify-center">
               <img
                 src={userData?.profilePic || "/assets/profile.png"}
                 className="w-24 h-24 rounded-full border-2 border-yellow-400 object-cover"
@@ -94,7 +94,7 @@ const Requests_Page = () => {
           {/* ------------------------
               CENTER REQUESTS FEED
           ------------------------- */}
-          <div className="w-full lg:w-[60vw] bg-transparent h-[75vh] rounded-3xl overflow-y-auto flex flex-col items-center gap-8 p-6 scrollbar-hide">
+          <div className="w-full lg:w-[70vw] bg-transparent h-[75vh] rounded-3xl overflow-y-auto flex flex-col items-center gap-8 scrollbar-hide m-4">
 
             {/* RECEIVED */}
             <h2 className="text-white text-2xl font-semibold">Received Requests</h2>
@@ -191,7 +191,7 @@ const Requests_Page = () => {
           {/* -------------------
               RIGHT CHAT (Desktop only)
           ------------------- */}
-          <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl"></div>
+          <div className="hidden lg:flex w-[22vw] bg-violet-950 h-[50vh] rounded-3xl m-4"></div>
         </div>
       </div>
 

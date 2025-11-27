@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Connection from "../models/Connections.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const getUserData = async (req, res) => {
     const { userId } = req.body;
@@ -109,3 +110,41 @@ export const getSuggestions = async (req, res) => {
     return res.status(500).json({ success:false, message:"Server error" });
   }
 };
+
+
+//profile picture update
+export const updateProfilePic = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No file uploaded" });
+    }
+
+    const userId = req.userId;
+
+    const result = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          folder: "virdev/profile_pics",
+          width: 400,
+          height: 400,
+          crop: "fill",
+        },
+        (error, uploadResult) => {
+          if (error) reject(error);
+          else resolve(uploadResult);
+        }
+      ).end(req.file.buffer);
+    });
+
+    await User.findByIdAndUpdate(userId, {
+      profilePic: result.secure_url,
+    });
+
+    res.json({ success: true, url: result.secure_url });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+

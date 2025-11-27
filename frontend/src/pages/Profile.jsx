@@ -73,6 +73,31 @@ const Profile = () => {
     }
   };
 
+  //handle profile pic upload
+  const handleProfilePicUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profilePic", file);
+
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/user/profile-pic`,
+        formData,
+        { withCredentials: true }
+      );
+
+      if (data.success) {
+        toast.success("Profile picture updated");
+        getUserData();
+      }
+    } catch (err) {
+      toast.error("Upload failed");
+    }
+  };
+
+
 
 
   return (
@@ -107,7 +132,7 @@ const Profile = () => {
             {/* Profile Image */}
             <div className="w-24 h-24 rounded-full border-4 border-yellow-400 overflow-hidden">
               <img
-                src={userData?.profile || "https://via.placeholder.com/150"}
+                src={userData?.profilePic || "https://via.placeholder.com/150"}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -288,6 +313,15 @@ const Profile = () => {
                   onChange={handleChange}
                 />
               </div>
+
+              {/*Profile Pic Upload*/}
+              <div className="text-center mt-4">
+                <label className="text-xl px-4 py-2 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%] ">
+                  Change Profile Pic
+                  <input type="file" accept="image/*" onChange={handleProfilePicUpload} className="hidden" />
+                </label>
+              </div>
+
 
               {/* Update Button */}
               <div className="text-center mt-4">
