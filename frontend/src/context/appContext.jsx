@@ -98,6 +98,7 @@ export function AppContextProvider(props) {
         }
     };
 
+
     useEffect(() => {
         getAuthState();
         getUserData();

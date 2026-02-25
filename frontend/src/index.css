@@ -31,6 +31,32 @@
   scrollbar-width: none;
 }
 
+/* Custom Scrollbar for Containers with .custom-scrollbar class */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;               /* Width of the vertical scrollbar */
+  height: 6px;              /* Height of the horizontal scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;  /* Keeps the track invisible for a cleaner look */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #334155; /* Slate-700: subtle color */
+  border-radius: 20px;       /* Fully rounded edges */
+  border: 1px solid transparent; /* Padding effect */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #475569; /* Slate-600: brightens on hover */
+}
+
+/* Firefox Support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
 
 @keyframes slideLeft {
   0% {

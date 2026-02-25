@@ -20,6 +20,9 @@ import ResetPassword from './pages/ResetPassword.jsx';
 import Ideas_Page from './pages/Ideas_Page.jsx';
 import Create_Idea from './pages/Create_Idea.jsx';
 import Users_Ideas from './pages/Users_Ideas.jsx';
+import Chat from './pages/Chat.jsx'
+import { SocketProvider } from "./context/socketContext";
+import IdeaInterest from '../../backend/models/IdeaInterest.js'
 
 
 const router = createBrowserRouter([
@@ -58,35 +61,53 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Profile />
+    element: <Profile />,
+    loader: authLoader
   },
   {
     path: "/requests",
-    element: <Requests_page />
+    element: <Requests_page />,
+    loader: authLoader
   },
   {
     path: "/connections",
-    element: <Connections_page />
+    element: <Connections_page />,
+    loader: authLoader
   },
   {
     path: "/verify-otp",
-    element: <VerifyEmail />
+    element: <VerifyEmail />,
+    loader: authLoader
   },
   {
     path: "/reset-password",
-    element: <ResetPassword />
+    element: <ResetPassword />,
+    loader: authLoader
   },
   {
     path: "/ideas",
-    element:<Ideas_Page />
+    element: <Ideas_Page />,
+    loader: authLoader
   },
   {
     path: "/create-idea",
-    element: <Create_Idea />
+    element: <Create_Idea />,
+    loader: authLoader
   },
   {
     path: "/my-ideas",
-    element: <Users_Ideas />
+    element: <Users_Ideas />,
+    loader: authLoader
+  },
+  {
+    path: "/messages",
+    element: <Chat />,
+    loader: authLoader
+  },
+  {
+    path: "my-idea-interests",
+    element: <IdeaInterest />,
+    loader: authLoader
   }
 ])
 
@@ -94,8 +115,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <AppContextProvider>
-        <ToastContainer />
-        <RouterProvider router={router} />
+        <SocketProvider>
+          <ToastContainer />
+          <RouterProvider router={router} />
+        </SocketProvider>
       </AppContextProvider>
     </AuthProvider>
 
