@@ -40,7 +40,7 @@
 //         }
 
 //         const userId = decoded.id;
-        
+
 //         // 1. Map User and Join Room
 //         userSocketMap[userId] = socket.id;
 //         socket.join(userId);
@@ -125,17 +125,17 @@ import { Server as IOServer } from "socket.io";
 import jwt from "jsonwebtoken";
 import Conversation from "./models/Conversation.js";
 // Make sure to copy your Actions.js file to your main project and adjust the import path
-import ACTIONS from "./utils/Actions.js"; 
+import ACTIONS from "./utils/Actions.js";
 
 let io = null;
 
 // --- CHAT STATE ---
 // Track online users: { userId: socketId }
-const userSocketMap = {}; 
+const userSocketMap = {};
 
 // --- EDITOR STATE ---
 // Track editor room users: { socketId: username }
-const editorSocketMap = {}; 
+const editorSocketMap = {};
 
 // --- HELPER FUNCTIONS ---
 function parseCookies(cookieHeader) {
@@ -171,9 +171,15 @@ function getAllConnectedClients(roomId) {
     );
 }
 
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 export function initSocket(server) {
     io = new IOServer(server, {
-        cors: { origin: "http://localhost:5173", credentials: true },
+        cors: {
+            origin: frontendUrl,
+            method: ["GET", "POST", "PUT", "DELETE"],
+            credentials: true
+        },
     });
 
     io.on("connection", (socket) => {
@@ -185,7 +191,7 @@ export function initSocket(server) {
         }
 
         const userId = decoded.id;
-        
+
         // ==========================================
         //         CHAT & MESSAGING LOGIC
         // ==========================================
@@ -202,8 +208,8 @@ export function initSocket(server) {
             try {
                 if (!text || !text.trim()) return;
 
-                let convo = await Conversation.findOne({ 
-                    participants: { $all: [userId, toUserId] } 
+                let convo = await Conversation.findOne({
+                    participants: { $all: [userId, toUserId] }
                 });
 
                 if (!convo) {
@@ -261,11 +267,11 @@ export function initSocket(server) {
         //           CODE EDITOR LOGIC
         // ==========================================
 
-        socket.on(ACTIONS.JOIN , ( { roomId, username} ) => {
+        socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
             editorSocketMap[socket.id] = username;
             socket.join(roomId);
             const clients = getAllConnectedClients(roomId);
-            clients.forEach(( { socketId} ) => {
+            clients.forEach(({ socketId }) => {
                 io.to(socketId).emit(ACTIONS.JOINED, {
                     clients,
                     username,
@@ -294,9 +300,9 @@ export function initSocket(server) {
             delete editorSocketMap[socket.id];
             // Note: socket.leave() is kept as per your original snippet, 
             // though socket.io automatically leaves rooms upon actual disconnect.
-            socket.leave(); 
+            socket.leave();
         })
-        
+
         // Custom LEAVE event (added from our previous conversation 
         // to handle users navigating away from the React Editor page 
         // without completely disconnecting their global socket)
