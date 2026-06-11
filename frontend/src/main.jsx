@@ -23,7 +23,6 @@ import Create_Idea from './pages/Create_Idea.jsx';
 import Users_Ideas from './pages/Users_Ideas.jsx';
 import Chat from './pages/Chat.jsx'
 import { SocketProvider } from "./context/socketContext";
-import IdeaInterest from '../../backend/models/IdeaInterest.js'
 import Devroom from './pages/Devroom.jsx'
 import EditorPage from './pages/EditorPage.jsx'
 
@@ -105,11 +104,6 @@ const router = createBrowserRouter([
   {
     path: "/messages",
     element: <Chat />,
-    loader: authLoader
-  },
-  {
-    path: "/my-idea-interests",
-    element: <IdeaInterest />,
     loader: authLoader
   },
   {
