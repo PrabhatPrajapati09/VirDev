@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/appContext";
 import { SocketContext } from "../context/socketContext";
 import axios from "axios";
-
-import Sidebar from "../components/chat/sidebar";
+import Sidebar from "../components/chat/Sidebar";
 import ChatWindow from "../components/chat/ChatWindow";
 
 export default function Chat() {
