@@ -4,8 +4,7 @@ import Editor from '../components/devroom/Editor';
 import ACTIONS from '../utils/Actions';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-// 1. Import your context (adjust the path to match your folder structure)
-import { SocketContext } from '../context/SocketContext';
+import { SocketContext } from '../context/socketContext';
 import { FaComments, FaTimes } from 'react-icons/fa';
 import Chat from './Chat';
 import VerificationGuard from '../components/auth/VerificationGuard';
