@@ -205,7 +205,7 @@ const Profile = () => {
               </div>
 
               {/* Age & Gender */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <p className="text-lg">Age:</p>
                   <input
@@ -216,7 +216,30 @@ const Profile = () => {
                     value={formData.age}
                     onChange={handleChange}
                   />
+                </div> */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  <p className="text-lg">Age:</p>
+                  <input
+                    type="number" // Changed to number for better mobile UX
+                    name="age"
+                    placeholder="Enter Age"
+                    className={`bg-violet-900 rounded-2xl p-3 w-full border-2 ${formData.age && (formData.age < 15 || formData.age > 80)
+                      ? 'border-red-500'
+                      : 'border-transparent'
+                      }`}
+                    value={formData.age}
+                    onChange={handleChange}
+                  />
+
+                  {/* Validation Message */}
+                  {formData.age && (formData.age < 15 || formData.age > 80) && (
+                    <p className="text-red-400 text-sm mt-2 ml-2">
+                      Age must be between 15 and 80.
+                    </p>
+                  )}
                 </div>
+
                 <div className="flex-1">
                   <p className="text-lg">Gender:</p>
                   <select
@@ -233,110 +256,111 @@ const Profile = () => {
                 </div>
               </div>
 
-              {/* Skills */}
-              <div className="skills relative">
-                <p className="text-lg mb-2">Skills:</p>
+            </div>
+            {/* Skills */}
+            <div className="skills relative">
+              <p className="text-lg mb-2">Skills:</p>
 
-                {/* Selected Skills */}
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {Array.isArray(formData.skills) &&
-                    formData.skills.map((skill, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-fuchsia-600/40 border border-fuchsia-400 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
+              {/* Selected Skills */}
+              <div className="flex flex-wrap gap-2 mb-2">
+                {Array.isArray(formData.skills) &&
+                  formData.skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-fuchsia-600/40 border border-fuchsia-400 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
+                    >
+                      {skill}
+                      <button
+                        type="button"
+                        className="text-xs text-white/80 hover:text-white"
+                        onClick={() =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            skills: prev.skills.filter((s) => s !== skill)
+                          }))
+                        }
                       >
-                        {skill}
-                        <button
-                          type="button"
-                          className="text-xs text-white/80 hover:text-white"
-                          onClick={() =>
-                            setFormData((prev) => ({
-                              ...prev,
-                              skills: prev.skills.filter((s) => s !== skill)
-                            }))
-                          }
-                        >
-                          ✕
-                        </button>
-                      </span>
+                        ✕
+                      </button>
+                    </span>
+                  ))}
+              </div>
+
+              {/* Skill Input */}
+              <input
+                type="text"
+                placeholder="Type a skill..."
+                className="bg-violet-900 rounded-2xl p-3 w-full text-white"
+                value={formData.skillInput}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, skillInput: e.target.value }))
+                }
+              />
+
+              {/* Suggestions Dropdown */}
+              {formData.skillInput && (
+                <div className="absolute z-20 bg-violet-800/90 backdrop-blur-md mt-1 rounded-2xl w-full border border-fuchsia-500/30 max-h-40 overflow-y-auto">
+                  {skillSuggestions
+                    .filter(
+                      (s) =>
+                        s.toLowerCase().includes(formData.skillInput.toLowerCase()) &&
+                        !formData.skills.includes(s)
+                    )
+                    .slice(0, 6)
+                    .map((s, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            skills: [...prev.skills, s],
+                            skillInput: ''
+                          }));
+                        }}
+                        className="px-4 py-2 text-white hover:bg-fuchsia-600/40 cursor-pointer rounded-2xl transition-all"
+                      >
+                        {s}
+                      </div>
                     ))}
                 </div>
+              )}
+            </div>
 
-                {/* Skill Input */}
-                <input
-                  type="text"
-                  placeholder="Type a skill..."
-                  className="bg-violet-900 rounded-2xl p-3 w-full text-white"
-                  value={formData.skillInput}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, skillInput: e.target.value }))
-                  }
-                />
+            {/* About */}
+            <div>
+              <p className="text-lg">About:</p>
+              <textarea
+                name="about"
+                placeholder="Enter About Yourself"
+                className="bg-violet-900 rounded-2xl p-3 w-full"
+                value={formData.about}
+                onChange={handleChange}
+              />
+            </div>
 
-                {/* Suggestions Dropdown */}
-                {formData.skillInput && (
-                  <div className="absolute z-20 bg-violet-800/90 backdrop-blur-md mt-1 rounded-2xl w-full border border-fuchsia-500/30 max-h-40 overflow-y-auto">
-                    {skillSuggestions
-                      .filter(
-                        (s) =>
-                          s.toLowerCase().includes(formData.skillInput.toLowerCase()) &&
-                          !formData.skills.includes(s)
-                      )
-                      .slice(0, 6)
-                      .map((s, idx) => (
-                        <div
-                          key={idx}
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              skills: [...prev.skills, s],
-                              skillInput: ''
-                            }));
-                          }}
-                          className="px-4 py-2 text-white hover:bg-fuchsia-600/40 cursor-pointer rounded-2xl transition-all"
-                        >
-                          {s}
-                        </div>
-                      ))}
-                  </div>
-                )}
-              </div>
-
-              {/* About */}
-              <div>
-                <p className="text-lg">About:</p>
-                <textarea
-                  name="about"
-                  placeholder="Enter About Yourself"
-                  className="bg-violet-900 rounded-2xl p-3 w-full"
-                  value={formData.about}
-                  onChange={handleChange}
-                />
-              </div>
-
-              {/*Profile Pic Upload*/}
-              <div className="text-center mt-4">
-                <label className="text-xl px-4 py-2 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%] ">
-                  Change Profile Pic
-                  <input type="file" accept="image/*" onChange={handleProfilePicUpload} className="hidden" />
-                </label>
-              </div>
+            {/*Profile Pic Upload*/}
+            <div className="text-center mt-4">
+              <label className="text-xl px-4 py-2 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%] ">
+                Change Profile Pic
+                <input type="file" accept="image/*" onChange={handleProfilePicUpload} className="hidden" />
+              </label>
+            </div>
 
 
-              {/* Update Button */}
-              <div className="text-center mt-4">
-                <button
-                  className="text-xl px-2 py-2 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%]"
-                  onClick={handleUpdate}
-                >
-                  Update Profile
-                </button>
-              </div>
+            {/* Update Button */}
+            <div className="text-center mt-4">
+              <button
+                className="text-xl px-2 py-2 bg-purple-600 hover:bg-purple-700 transition rounded-2xl w-[80%]"
+                onClick={handleUpdate}
+              >
+                Update Profile
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 

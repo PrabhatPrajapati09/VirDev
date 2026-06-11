@@ -166,6 +166,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineBulb } from "react-icons/ai";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePersonAddAlt } from 'react-icons/md';
+import { LuHeartHandshake } from "react-icons/lu";
 import { GrGroup } from 'react-icons/gr';
 import { RxCross2 } from "react-icons/rx";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -266,10 +267,18 @@ const Navbar = () => {
 
                     {/** PROFILE / MENU */}
                     <div className="flex items-center gap-4">
+                        <div className="devroom">
+                            <button
+                                onClick={() => navigate('/devroom')}
+                                className="h-12 w-12 text-2xl border border-slate-700 text-white rounded-full flex justify-center items-center hover:bg-slate-800 transition hover:text-fuchsia-300"
+                            >
+                                <span className="text-2xl"><LuHeartHandshake /></span>
+                            </button>
+                        </div>
                         <div className="hidden lg:block relative">
                             <button
                                 onClick={() => setOpen(!open)}
-                                className="h-12 w-12 text-2xl border border-slate-700 text-white rounded-full flex justify-center items-center hover:bg-slate-800 transition"
+                                className="h-12 w-12 text-2xl border border-slate-700 text-white rounded-full flex justify-center items-center hover:bg-slate-800 transition hover:text-fuchsia-300"
                             >
                                 {open ? <RxCross2 /> : <AiOutlineUser />}
                             </button>

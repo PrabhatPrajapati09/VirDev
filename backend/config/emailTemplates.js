@@ -362,10 +362,6 @@ export const WELCOME_TO_VIRDEV_TEMPLATE = `
 
           <p>Start by completing your profile so we can match you with the perfect dev partners.</p>
 
-          <center>
-            <a href="{{profileLink}}" class="button">Complete Your Profile</a>
-          </center>
-
           <p>Let’s build something amazing.<br><strong>– The VirDev Team</strong></p>
         </td></tr>
 

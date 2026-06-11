@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import Home_Navbar from './pages/Home_Navbar.jsx'
 import { AppContextProvider } from './context/appContext.jsx';
 import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { authLoader } from "./loader/authLoader";
 import { AuthProvider } from "./context/authContext";
@@ -23,6 +24,8 @@ import Users_Ideas from './pages/Users_Ideas.jsx';
 import Chat from './pages/Chat.jsx'
 import { SocketProvider } from "./context/socketContext";
 import IdeaInterest from '../../backend/models/IdeaInterest.js'
+import Devroom from './pages/Devroom.jsx'
+import EditorPage from './pages/EditorPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -105,8 +108,18 @@ const router = createBrowserRouter([
     loader: authLoader
   },
   {
-    path: "my-idea-interests",
+    path: "/my-idea-interests",
     element: <IdeaInterest />,
+    loader: authLoader
+  },
+  {
+    path: "/devroom",
+    element: <Devroom />,
+    loader: authLoader,
+  },
+  {
+    path: "/devroom/editor/:roomId",
+    element: <EditorPage />,
     loader: authLoader
   }
 ])
@@ -117,6 +130,17 @@ createRoot(document.getElementById('root')).render(
       <AppContextProvider>
         <SocketProvider>
           <ToastContainer />
+          <Toaster
+            position='top-right'
+            toastOptions={{
+              success: {
+                theme: {
+                  primary: 'green',
+                  secondary: 'black'
+                }
+              }
+            }}
+          />
           <RouterProvider router={router} />
         </SocketProvider>
       </AppContextProvider>

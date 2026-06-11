@@ -61,7 +61,7 @@ const SignupForm = () => {
                         {errors.username && <p className='text-xs text-red-500 w-full'>{errors.username.message}</p>}
                     </div>
                     <div className="mb-4 flex items-center gap-3 px-5 py-2.5 w-full rounded-full bg-slate-950 text-white ">
-                        <input className='bg-transparent outline-none w-full' type="text" name="email" placeholder='Enter Email' {...register('email', { required: { value: true, message: 'Email is required' } })} />
+                        <input className='bg-transparent outline-none w-full' type="email" name="email" placeholder='Enter Email' {...register('email', { required: { value: true, message: 'Email is required' } })} />
                         {errors.email && <p className='text-xs text-red-500 w-full'>{errors.email.message}</p>}
                     </div>
                     <div className="mb-4 flex items-center gap-3 px-5 py-2.5 w-full rounded-full bg-slate-950 text-white ">

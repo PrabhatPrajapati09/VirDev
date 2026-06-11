@@ -168,6 +168,8 @@ const Home = () => {
             </p>
           </div>
           <p className="text-center text-white/80 text-sm px-3 line-clamp-3">{userData?.about}</p>
+          {/* <p className="text-center text-white/80 text-sm px-3 line-clamp-3">{userData?.ideas}</p> */}
+
           <button className="text-xs px-3 py-1 bg-purple-600 rounded-md truncate max-w-full">
             {userData?.email}
           </button>
@@ -241,9 +243,9 @@ const Home = () => {
 
       {/* MOBILE CHAT SLIDE-UP */}
       {openChat && (
-        <div className="lg:hidden fixed bottom-0 left-0 w-full h-[60vh] bg-slate-900 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 animate-slideUp border-t border-white/10">
+        <div className="lg:hidden fixed bottom-0 left-0 w-full h-[100vh] bg-slate-900 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 animate-slideUp border-t border-white/10">
           <button className="text-white text-2xl absolute top-4 right-4 z-10" onClick={() => setOpenChat(false)}><FaTimes /></button>
-          <VerificationGuard isVerified={userData?.isVerified} title="Verify Your Account to see messages">
+          <VerificationGuard isVerified={userData?.isUserVerified} title="Verify Your Account to see messages">
 
             <Chat />
           </VerificationGuard>

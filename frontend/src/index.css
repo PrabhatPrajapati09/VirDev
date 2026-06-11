@@ -57,6 +57,12 @@
   scrollbar-color: #334155 transparent;
 }
 
+.cm-editor {
+  background-color: #1c1e29;
+  min-height: 100%;
+  line-height: 1.5;
+  padding-top:5px;
+}
 
 @keyframes slideLeft {
   0% {
