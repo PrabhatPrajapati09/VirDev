@@ -1,7 +1,8 @@
-# 🚀 VirDev
+# 🚀 VirDev -> virdev.vercel.app
 
 > A Developer Networking & Collaboration Platform  
-> Built with MERN + Socket.io
+> Built with MERN + Socket.io                 
+> Available to experience on "virdev.vercel.app"
 
 VirDev is a full-stack developer collaboration platform where developers can:
 
@@ -190,7 +191,7 @@ NODE_ENV=development
 ## 1️⃣ Clone Repository
 
 
-git clone https://github.com/yourusername/VirDev.git
+git clone https://github.com/prabhatprajapati09/VirDev.git
 
 cd VirDev
 
@@ -202,7 +203,7 @@ cd VirDev
 
 cd backend
 npm install
-npm run dev
+npm run server
 
 
 Backend runs on:
@@ -361,7 +362,7 @@ MIT License
 # 👤 Author
 
 **Prabhat Prajapati**  
-Frontend Developer  
+MERN Developer  
 
 ---
 
